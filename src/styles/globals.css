@@ -17,5 +17,18 @@ main {
   margin: auto;
   padding: 2rem 24px;
   width: 100%;
-  max-width: 700px;
+}
+
+@layer base {
+  :root {
+    @apply bg-theme-light text-theme-light
+  }
+
+  [data-theme='dark']:root {
+    @apply bg-theme-dark text-theme-dark
+  }
+
+  main {
+    @apply max-w-default;
+  }
 }

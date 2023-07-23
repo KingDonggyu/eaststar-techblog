@@ -1,3 +1,10 @@
+import { TopNavbar } from 'components/TopNavbar';
+
 export default function Home() {
-  return <main></main>;
+  return (
+    <>
+      <TopNavbar />
+      <main></main>
+    </>
+  );
 }
