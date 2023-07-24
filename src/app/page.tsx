@@ -1,10 +1,9 @@
-import { TopNavbar } from 'components/TopNavbar';
+import PostList from 'components/PostList';
 
 export default function Home() {
   return (
     <>
-      <TopNavbar />
-      <main></main>
+      <PostList />
     </>
   );
 }

@@ -10,22 +10,20 @@
 
 :root {
   font-size: 16px;
+  word-break: keep-all;
+  word-wrap: break-word;
+  overflow-x: hidden;
+  transition: background-color .3s ease;
   -webkit-font-smoothing: antialiased;
-}
-
-main {
-  margin: auto;
-  padding: 2rem 24px;
-  width: 100%;
 }
 
 @layer base {
   :root {
-    @apply bg-theme-light text-theme-light
+    @apply bg-theme-light text-theme-light;
   }
 
-  [data-theme='dark']:root {
-    @apply bg-theme-dark text-theme-dark
+  .dark:root {
+    @apply bg-theme-dark text-theme-dark;
   }
 
   main {

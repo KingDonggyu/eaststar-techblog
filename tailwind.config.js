@@ -13,6 +13,10 @@ module.exports = {
         'theme-light': '#22272e',
         'theme-dark': 'white',
       },
+      boxShadow: {
+        default: 'rgba(0, 0, 0, 0.08) 2px 4px 12px',
+        hover: 'rgba(0, 0, 0, 0.16) 2px 4px 16px',
+      },
     },
   },
   plugins: [],

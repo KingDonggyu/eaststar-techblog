@@ -1,6 +1,6 @@
 'use client';
 
-import { ButtonHTMLAttributes } from 'react';
+import { ButtonHTMLAttributes, useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
 import { MoonIcon, SunIcon } from '@heroicons/react/24/solid';
 
@@ -11,10 +11,19 @@ interface ThemeToggleProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 export function ThemeToggle({ className }: ThemeToggleProps) {
   const theme = { light: 'light', dark: 'dark' };
   const { theme: currentTheme, setTheme } = useTheme();
+  const [isVisible, setIsVisible] = useState(false);
 
   const handleClick = () => {
     setTheme(currentTheme === theme.dark ? theme.light : theme.dark);
   };
+
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
+
+  if (!isVisible) {
+    return null;
+  }
 
   return (
     <button type="button" aria-label="다크 모드 적용" tabIndex={0} onClick={handleClick} className={`${className}`}>
