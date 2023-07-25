@@ -31,6 +31,12 @@ module.exports = {
         default: 'rgba(0, 0, 0, 0.08) 2px 4px 12px',
         hover: 'rgba(0, 0, 0, 0.16) 2px 4px 16px',
       },
+      screens: {
+        xl: { max: '1279px' },
+        lg: { max: '1023px' },
+        md: { max: '767px' },
+        sm: { max: '639px' },
+      },
     },
   },
   plugins: [],

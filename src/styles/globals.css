@@ -20,7 +20,7 @@
 
 @layer base {
   :root {
-    @apply bg-theme-light text-theme-light;
+    @apply bg-theme-light text-theme-light sm:text-xs;
   }
 
   .dark:root {

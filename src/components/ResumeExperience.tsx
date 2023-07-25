@@ -11,7 +11,7 @@ export interface ResumeExperienceProps {
 export function ResumeExperience({ title, web, startDate, endDate, details = [] }: ResumeExperienceProps) {
   return (
     <div>
-      <div className="flex justify-between items-baseline">
+      <div className="flex justify-between items-baseline sm:flex-col sm:gap-2">
         <h3 className="text-lg font-bold m-0">
           {web ? (
             <Link href={web} target="_blank">

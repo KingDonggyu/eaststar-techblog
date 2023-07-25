@@ -29,10 +29,10 @@ export function ResumeProject({
   tasks,
 }: ResumeProjectProps) {
   return (
-    <div className="flex gap-8">
-      <div>
+    <div className="flex gap-8 sm:flex-col sm:gap-5">
+      <div className="sm:flex sm:justify-between sm:items-baseline">
         <Image src={image} alt={title} width={100} height={100} className="rounded-lg min-w-[100px]" />
-        <div className="flex justify-evenly items-center mt-5">
+        <div className="flex justify-evenly items-center mt-5 sm:gap-4">
           {github && (
             <Link href={github} target="_blank">
               <GitHubIcon className="w-6 h-6" />
@@ -51,13 +51,13 @@ export function ResumeProject({
         </div>
       </div>
       <div className="flex-grow">
-        <div className="flex justify-between items-baseline">
-          <h3 className="font-bold">{title}</h3>
+        <div className="flex justify-between items-baseline sm:flex-col">
+          <h3 className="font-bold sm:m-2">{title}</h3>
           <span className="text-sm text-date">
             {startDate}~{endDate}
           </span>
         </div>
-        <blockquote className="mb-4">
+        <blockquote className="mb-4 sm:my-4">
           <p>{introduce}</p>
         </blockquote>
         <p className="text-sm font-bold">{skills.join(', ')}</p>
@@ -81,7 +81,7 @@ function ProjectTask({ title, startDate, endDate, details }: ProjectTaskProps) {
   return (
     <div key={title} className="mb-5">
       {title && (
-        <div className="flex justify-between items-baseline">
+        <div className="flex justify-between items-baseline sm:flex-col sm:gap-2">
           <h4 className="text-lg font-bold">{title}</h4>
           <span className="text-sm text-date">
             {startDate} ~ {endDate}
