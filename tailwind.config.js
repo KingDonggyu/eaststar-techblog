@@ -1,17 +1,31 @@
+const colors = {
+  teal: '#2dd4bf',
+  teal200: '#0d9488',
+  white: 'white',
+  dark: '#22272e',
+  gray: '#e5e7eb',
+  gray200: '#6b7280',
+  gray300: '#424242',
+};
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./src/components/**/*.{js,ts,jsx,tsx,mdx}'],
+  content: ['./src/app/**/*.{js,ts,jsx,tsx,mdx}', './src/components/**/*.{js,ts,jsx,tsx,mdx}'],
   darkMode: 'class',
   theme: {
     extend: {
       maxWidth: { default: '700px' },
       backgroundColor: {
-        'theme-light': 'white',
-        'theme-dark': '#22272e',
+        'theme-light': colors.white,
+        'theme-dark': colors.dark,
       },
       colors: {
-        'theme-light': '#22272e',
-        'theme-dark': 'white',
+        'theme-light': colors.gray300,
+        'theme-dark': colors.white,
+        primary: colors.teal,
+        primary200: colors.teal200,
+        date: colors.gray200,
+        line: colors.gray,
       },
       boxShadow: {
         default: 'rgba(0, 0, 0, 0.08) 2px 4px 12px',
