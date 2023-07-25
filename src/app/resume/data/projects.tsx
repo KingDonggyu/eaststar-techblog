@@ -57,13 +57,13 @@ const projects: Project[] = [
             web: 'https://east-star.tistory.com/42',
           },
           {
-            content: 'Intersection Observer API를 활용한 무한 스크롤 구현',
-          },
-          {
             content: '커스텀 Hook을 적극 활용하여 컴포넌트 내 관심사 분리',
           },
           {
             content: '메타 태그 사용 및 sitemap 생성 자동화를 통한 검색 엔진 최적화',
+          },
+          {
+            content: 'Intersection Observer API를 활용한 무한 스크롤 구현',
           },
         ],
       },

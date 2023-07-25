@@ -16,7 +16,15 @@ export function TopNavbar() {
         >
           개발자 동쪽별 💫
         </Link>
-        <div className="flex items-center">
+        <div className="flex items-center gap-7">
+          <Link
+            href="/resume"
+            aria-label="이력서 페이지로 이동"
+            tabIndex={0}
+            className="font-bold no-underline hover:text-inherit"
+          >
+            Resume
+          </Link>
           <ThemeToggle />
         </div>
       </nav>

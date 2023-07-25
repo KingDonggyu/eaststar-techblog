@@ -1,4 +1,5 @@
 import 'styles/posts.css';
+import { Metadata } from 'next';
 import { ResumeSection } from 'components/ResumeSection';
 import { ResumeIntroduce } from 'components/ResumeIntroduce';
 import { ResumeProject } from 'components/ResumeProject';
@@ -6,6 +7,11 @@ import { ResumeExperience } from 'components/ResumeExperience';
 import { PortfolioLinks } from 'components/PortfolioLinks';
 import projects from './data/projects';
 import { activities, awards, educations } from './data/experiences';
+
+export const metadata: Metadata = {
+  title: 'Resume - 개발자 동쪽별',
+  description: '저를 소개합니다.',
+};
 
 export default function Resume() {
   return (
