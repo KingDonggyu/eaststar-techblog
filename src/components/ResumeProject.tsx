@@ -29,7 +29,7 @@ export function ResumeProject({
   tasks,
 }: ResumeProjectProps) {
   return (
-    <div className="flex gap-8 sm:flex-col sm:gap-5">
+    <div className="flex gap-8 sm:flex-col sm:gap-0">
       <div className="sm:flex sm:justify-between sm:items-baseline">
         <Image src={image} alt={title} width={100} height={100} className="rounded-lg min-w-[100px]" />
         <div className="flex justify-evenly items-center mt-5 sm:gap-4">
@@ -52,7 +52,7 @@ export function ResumeProject({
       </div>
       <div className="flex-grow">
         <div className="flex justify-between items-baseline sm:flex-col">
-          <h3 className="font-bold sm:m-2">{title}</h3>
+          <h3 className="font-bold sm:my-2">{title}</h3>
           <span className="text-sm text-date">
             {startDate}~{endDate}
           </span>
