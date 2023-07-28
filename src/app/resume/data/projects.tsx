@@ -31,10 +31,10 @@ const projects: Project[] = [
               '부분별 클라이언트 사이드 렌더링 적용으로 서버 사이드 렌더링 속도 87% 개선 (HTML 응답 시간: 1.33s → 0.177s)',
           },
           {
-            content: '사용자 경험 향상을 위한 Skeleton UI Loading 적용',
+            content: 'SQL raw query를 Prisma ORM으로 마이그레이션하여 유지 보수성 및 가독성 개선',
           },
           {
-            content: 'Prisma ORM 마이그레이션을 수행하여 유지 보수성 및 가독성 개선',
+            content: '사용자 경험 향상을 위한 Skeleton UI Loading 적용',
           },
         ],
       },
