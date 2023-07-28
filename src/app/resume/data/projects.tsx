@@ -29,6 +29,7 @@ const projects: Project[] = [
           {
             content:
               '부분별 클라이언트 사이드 렌더링 적용으로 서버 사이드 렌더링 속도 87% 개선 (HTML 응답 시간: 1.33s → 0.177s)',
+            web: 'https://east-star.tistory.com/46',
           },
           {
             content: 'SQL raw query를 Prisma ORM으로 마이그레이션하여 유지 보수성 및 가독성 개선',
