@@ -16,7 +16,7 @@ const projects: Project[] = [
       <>
         <strong>&quot;독후감을 작성하고 공유할 수 있는 웹 서비스&quot;</strong> (회원 38명 확보)
         <br />
-        1인 개발 프로젝트이며 지속적인 유지보수 및 운영을 하고 있습니다.
+        1인 풀스택 개발 프로젝트이며 지속적인 유지보수 및 운영을 하고 있습니다.
       </>
     ),
     skills: ['Next.js', 'TypeScript', 'React-Query', 'Zustand', 'Emotion', 'AWS S3', 'Prisma', 'MySQL'],
@@ -33,6 +33,9 @@ const projects: Project[] = [
           },
           {
             content: 'SQL raw query를 Prisma ORM으로 마이그레이션하여 유지 보수성 및 가독성 개선',
+          },
+          {
+            content: '서버 service 로직 내 생성자 의존성 주입으로 결합도 최소화',
           },
           {
             content: '사용자 경험 향상을 위한 Skeleton UI Loading 적용',
