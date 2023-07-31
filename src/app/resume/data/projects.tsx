@@ -35,7 +35,7 @@ const projects: Project[] = [
             content: 'SQL raw query를 Prisma ORM으로 마이그레이션하여 유지 보수성 및 가독성 개선',
           },
           {
-            content: '서버 service 로직 내 생성자 의존성 주입으로 결합도 최소화',
+            content: '백엔드 여러 비즈니스 로직(Service 계층) 내 생성자 의존성 주입으로 결합도 최소화',
           },
           {
             content: '사용자 경험 향상을 위한 Skeleton UI Loading 적용',
@@ -55,6 +55,7 @@ const projects: Project[] = [
           {
             content:
               'React-Query, Axios, LocalStorage 등 인터페이스를 구현하여 외부 요소에 대한 의존성 최소화 및 유지 보수성 개선',
+            web: 'https://east-star.tistory.com/47',
           },
           {
             content: '아토믹 디자인을 활용한 디자인 시스템을 구축하여 컴포넌트 재사용성 및 확장성 증대',

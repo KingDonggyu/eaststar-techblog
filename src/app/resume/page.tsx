@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function Resume() {
   return (
     <>
-      <h1>
+      <h1 className="ml-2">
         반갑습니다, 저는 <strong>김동규</strong>입니다
       </h1>
       <ResumeIntroduce />
