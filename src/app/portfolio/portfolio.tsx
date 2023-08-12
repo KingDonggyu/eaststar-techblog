@@ -1,6 +1,5 @@
 'use client';
 
-import 'styles/portfolio.css';
 import { useEffect, useState } from 'react';
 import { ThemeToggle } from 'components/ThemeToggle';
 import { PortfolioIntro } from 'components/PortfolioIntro';

@@ -2,16 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-a {
-  text-decoration: none !important;
-}
-
 @layer base {
-  :root {
+  :root #portfolio {
     @apply md:text-[12px];
   }
 
-  a {
+  #portfolio a {
     @apply hover:text-primary transition-colors;
   }
 }

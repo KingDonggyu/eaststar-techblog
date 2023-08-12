@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 export default function Resume() {
   return (
-    <>
+    <div className="post">
       <h1 className="ml-2">
         반갑습니다, 저는 <strong>김동규</strong>입니다
       </h1>
@@ -45,6 +45,6 @@ export default function Resume() {
           <ResumeExperience key={education.title} {...education} />
         ))}
       </ResumeSection>
-    </>
+    </div>
   );
 }
