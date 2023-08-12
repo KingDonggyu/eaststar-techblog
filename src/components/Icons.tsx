@@ -4,6 +4,7 @@ import {
   GlobeAltIcon,
   VideoCameraIcon,
   ChevronDownIcon,
+  ComputerDesktopIcon,
 } from '@heroicons/react/24/solid';
 
 export function MailIcon({ className }: { className?: string }) {
@@ -32,4 +33,8 @@ export function GitHubIcon({ className }: { className?: string }) {
 
 export function ArrowDownIcon({ className }: { className?: string }) {
   return <ChevronDownIcon className={className} />;
+}
+
+export function DesktopIcon({ className }: { className?: string }) {
+  return <ComputerDesktopIcon className={className} />;
 }

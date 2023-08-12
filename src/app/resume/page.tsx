@@ -20,7 +20,7 @@ export default function Resume() {
         반갑습니다, 저는 <strong>김동규</strong>입니다
       </h1>
       <ResumeIntroduce />
-      <PortfolioLinks />
+      <PortfolioLinks hasPortfolioLink />
       <br />
       <ResumeSection title="Projects.">
         {projects.map(project => (

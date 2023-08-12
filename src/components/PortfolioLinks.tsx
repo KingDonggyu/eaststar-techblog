@@ -1,12 +1,13 @@
 import { ReactNode } from 'react';
 import Link from 'next/link';
-import { GitHubIcon, MailIcon, WriteIcon } from './Icons';
+import { GitHubIcon, MailIcon, DesktopIcon, WriteIcon } from './Icons';
 
 interface PortfolioLinksProps {
   large?: boolean;
+  hasPortfolioLink?: boolean;
 }
 
-export function PortfolioLinks({ large = false }: PortfolioLinksProps) {
+export function PortfolioLinks({ large = false, hasPortfolioLink = false }: PortfolioLinksProps) {
   const iconStyle = large ? 'w-20 h-20' : 'w-7 h-7';
 
   return (
@@ -21,6 +22,13 @@ export function PortfolioLinks({ large = false }: PortfolioLinksProps) {
           <WriteIcon className={iconStyle} />
         </Link>
       </LinkItemWrapper>
+      {hasPortfolioLink && (
+        <LinkItemWrapper name="Portfolio" large={large}>
+          <Link href="/portfolio" aria-label="포트폴리오로 이동">
+            <DesktopIcon className={iconStyle} />
+          </Link>
+        </LinkItemWrapper>
+      )}
       <LinkItemWrapper name="Email" large={large}>
         <Link href="mailto:dgkim69166916@gmail.com" target="_blank" aria-label="이메일 작성으로 이동">
           <MailIcon className={iconStyle} />
