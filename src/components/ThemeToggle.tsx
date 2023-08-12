@@ -26,7 +26,13 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
   }
 
   return (
-    <button type="button" aria-label="다크 모드 적용" tabIndex={0} onClick={handleClick} className={`${className}`}>
+    <button
+      type="button"
+      aria-label="다크 모드 적용"
+      tabIndex={0}
+      onClick={handleClick}
+      className={`${className} z-10`}
+    >
       {currentTheme === theme.dark ? <SunIcon className="w-7" /> : <MoonIcon className="w-6" />}
     </button>
   );
