@@ -37,6 +37,33 @@ module.exports = {
         md: { max: '767px' },
         sm: { max: '639px' },
       },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: 0 },
+          '100%': { opacity: 1 },
+        },
+        leftSlide: {
+          '0%': { marginLeft: '100%' },
+          '100%': { marginLeft: 0 },
+        },
+        rightSlide: {
+          '0%': { marginLeft: '-100%' },
+          '100%': { marginLeft: 0 },
+        },
+        themePulse: {
+          '0%': { color: colors.white },
+          '100%': { color: colors.dark },
+        },
+        pulse: {
+          '50%': { opacity: 0 },
+        },
+      },
+      animation: {
+        fadeIn: 'fadeIn 2s',
+        leftSlide: 'leftSlide 0.5s',
+        rightSlide: 'rightSlide 0.5s',
+        themePulse: 'themePulse 2s Infinite',
+      },
     },
   },
   plugins: [],
