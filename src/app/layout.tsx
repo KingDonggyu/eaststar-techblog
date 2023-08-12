@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Nanum_Gothic } from 'next/font/google';
 import { Providers } from 'components/Providers';
 import { PageLayout } from 'components/PageLayout';
+import { GA } from 'components/GA';
 
 const NanumGothic = Nanum_Gothic({
   subsets: ['latin'],
@@ -20,6 +21,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ko">
       <body className={NanumGothic.className}>
         <Providers>
+          {!process.env.NEXT_PUBLIC_IS_LOCAL && <GA />}
           <PageLayout>{children}</PageLayout>
         </Providers>
       </body>
