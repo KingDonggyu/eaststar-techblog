@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    @apply md:text-[12px];
+  }
+
+  a {
+    @apply hover:text-primary transition-colors;
+  }
+}
+
+@layer components {
+  .link-wrapper svg {
+    @apply sm:w-14;
+  }
+
+  .link-wrapper span {
+    @apply sm:text-xl;
+  }
+
+  .sticky-container > div {
+    @apply xl:static xl:h-fit;
+  }
+
+  .sticky-container > div:nth-child(1) {
+    @apply items-start;
+  }
+
+  .sticky-container > div:nth-child(2) {
+    @apply items-center;
+  }
+
+  .sticky-container > div:nth-child(3) {
+    @apply items-end;
+  }
+
+  .project-wrapper:hover > img {
+    @apply blur-md brightness-[0.3] scale-[1.1];
+  }
+
+  .project-title {
+    text-shadow: 2px 2px 4px #22272e;
+  }
+
+  .project-wrapper:hover .project-title {
+    @apply text-3xl xl:text-xl;
+  }
+
+  .project-wrapper:hover .project-detail {
+    @apply opacity-100;
+  }
+}

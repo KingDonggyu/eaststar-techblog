@@ -23,6 +23,10 @@
     @apply bg-theme-light text-theme-light sm:text-xs;
   }
 
+  body {
+    @apply text-base;
+  }
+
   .dark:root {
     @apply bg-theme-dark text-theme-dark;
   }
