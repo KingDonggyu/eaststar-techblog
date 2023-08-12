@@ -6,7 +6,7 @@ import carbontrackerThumbnail from 'public/thumbnail-carbontracker.png';
 import sttEvaluationThumbnail from 'public/thumbnail-stt.png';
 import smartDigitalSignageThumbnail from 'public/thumbnail-signage.png';
 import Link from 'next/link';
-import { GitHubIcon, WebIcon } from './Icons';
+import { DesktopIcon, GitHubIcon } from './Icons';
 
 export function PortfolioProject() {
   return (
@@ -31,8 +31,8 @@ export function PortfolioProject() {
                     <GitHubIcon className="w-7 sm:w-5" /> GitHub (README)
                   </Link>
                   {web && (
-                    <Link href={web} target="_blank" className="flex items-center gap-2">
-                      <WebIcon className="w-7 sm:w-5" /> Website
+                    <Link href={web} target="_blank" className="flex items-center gap-1.5">
+                      <DesktopIcon className="w-7 sm:w-5" /> Demo
                     </Link>
                   )}
                 </nav>
@@ -72,6 +72,7 @@ const projects: Project[] = [
     contribute: '4인 개발 프로젝트 - 프론트엔드 개발 기여',
     skills: 'React, TypeScript, React-Query, Zustand, styled-components, Webpack, Storybook',
     github: 'https://github.com/boostcampwm-2022/Web04-Fitory',
+    web: 'https://www.youtube.com/watch?v=Np4XKGe1IKU',
   },
   {
     thumbnail: algongThumbnail,
@@ -88,6 +89,7 @@ const projects: Project[] = [
     contribute: '4인 개발 프로젝트 - 프론트엔드 개발 기여',
     skills: 'React, JavaScript, Recoil, D3.js, styled-components',
     github: 'https://github.com/Go-Jaecheol/Carbon-Tracker',
+    web: 'https://www.youtube.com/watch?v=vmxlkb18iG0',
   },
   {
     thumbnail: sttEvaluationThumbnail,
