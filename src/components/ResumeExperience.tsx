@@ -12,7 +12,7 @@ export function ResumeExperience({ title, web, startDate, endDate, details = [] 
   return (
     <div>
       <div className="flex justify-between items-baseline sm:flex-col sm:gap-2">
-        <h3 className="text-lg font-bold m-0">
+        <h4 className="text-lg font-bold m-0">
           {web ? (
             <Link href={web} target="_blank">
               {title}
@@ -20,7 +20,7 @@ export function ResumeExperience({ title, web, startDate, endDate, details = [] 
           ) : (
             title
           )}
-        </h3>
+        </h4>
         <span className="text-sm text-date">
           {startDate} {Boolean(endDate) && `~ ${endDate}`}
         </span>
