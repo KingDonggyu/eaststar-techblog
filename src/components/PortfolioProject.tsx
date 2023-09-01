@@ -1,11 +1,11 @@
-import Image, { StaticImageData } from 'next/image';
-import sejulbookThumbnail from 'public/thumbnail-sejulbook.png';
-import fitoryThumbnail from 'public/thumbnail-fitory.png';
-import algongThumbnail from 'public/thumbnail-algong.png';
-import carbontrackerThumbnail from 'public/thumbnail-carbontracker.png';
-import sttEvaluationThumbnail from 'public/thumbnail-stt.png';
-import smartDigitalSignageThumbnail from 'public/thumbnail-signage.png';
 import Link from 'next/link';
+import Image, { StaticImageData } from 'next/image';
+import sejulbookThumbnail from 'assets/thumbnail-sejulbook.png';
+import fitoryThumbnail from 'assets/thumbnail-fitory.png';
+import algongThumbnail from 'assets/thumbnail-algong.png';
+import carbontrackerThumbnail from 'assets/thumbnail-carbontracker.png';
+import sttEvaluationThumbnail from 'assets/thumbnail-stt.png';
+import smartDigitalSignageThumbnail from 'assets/thumbnail-signage.png';
 import { DesktopIcon, GitHubIcon } from './Icons';
 
 export function PortfolioProject() {

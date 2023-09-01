@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import Image from 'next/image';
-import myPhoto from 'public/me.jpg';
+import myPhoto from 'assets/me.jpg';
 import useImageScrollScale from 'hooks/useImageScrollScale';
 import useScrollDownFadeOut from 'hooks/useScrollDownFadeOut';
 import useScrollDownFadeIn from 'hooks/useScrollDownFadeIn';
@@ -22,8 +22,10 @@ export function PortfolioIntro() {
   return (
     <section ref={wrapperRef} className="relative text-white h-[3000px] animate-opacity duration-1000">
       <Image
+        priority
         ref={coverImageRef}
         src={myPhoto}
+        placeholder="blur"
         alt="김동규의 사진"
         className={`fixed top-0 left-0 w-full h-[100vh] object-cover`}
       />

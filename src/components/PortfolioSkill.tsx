@@ -1,7 +1,7 @@
 import Image from 'next/image';
-import javascriptLogo from 'public/javascript.png';
-import reactLogo from 'public/react.png';
-import nextLogo from 'public/next.svg';
+import javascriptLogo from 'assets/javascript.png';
+import reactLogo from 'assets/react.png';
+import nextLogo from 'assets/next.svg';
 
 export function PortfolioSkill() {
   return (
