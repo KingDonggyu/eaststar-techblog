@@ -1,6 +1,8 @@
+'use client';
+
 import { useRef } from 'react';
 import Image from 'next/image';
-import myPhoto from 'assets/me.jpg';
+import hero from 'assets/hero.webp';
 import useImageScrollScale from 'hooks/useImageScrollScale';
 import useScrollDownFadeOut from 'hooks/useScrollDownFadeOut';
 import useScrollDownFadeIn from 'hooks/useScrollDownFadeIn';
@@ -9,7 +11,7 @@ import { ArrowDownIcon } from './Icons';
 
 export function PortfolioIntro() {
   const backgroundRef = useRef<HTMLDivElement>(null);
-  const coverImageRef = useImageScrollScale(scale => {
+  const heroImageRef = useImageScrollScale(scale => {
     if (backgroundRef.current) {
       backgroundRef.current.style.opacity = String(0.3 + scale / 5);
     }
@@ -23,11 +25,10 @@ export function PortfolioIntro() {
     <section ref={wrapperRef} className="relative text-white h-[3000px] animate-opacity duration-1000">
       <Image
         priority
-        ref={coverImageRef}
-        src={myPhoto}
-        placeholder="blur"
-        alt="김동규의 사진"
-        className={`fixed top-0 left-0 w-full h-[100vh] object-cover`}
+        ref={heroImageRef}
+        src={hero}
+        alt="히어로 이미지"
+        className={`fixed top-0 left-0 w-full h-[100vh] object-cover bg-black`}
       />
       <div ref={backgroundRef} className="fixed top-0 left-0 w-full h-[100vh] bg-black opacity-40" />
       <div ref={firstContentRef}>
