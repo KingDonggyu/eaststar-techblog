@@ -1,6 +1,7 @@
 import 'styles/posts.css';
 import { allPosts } from 'contentlayer/generated';
 import { getMDXComponent } from 'next-contentlayer/hooks';
+import { PostHeader } from 'components/PostHeader';
 
 export default function Post({ params }: { params: { slug: string } }) {
   const post = getPost(params.slug);
@@ -12,7 +13,8 @@ export default function Post({ params }: { params: { slug: string } }) {
   const Content = getMDXComponent(post.body.code);
 
   return (
-    <article className="post content">
+    <article className="post content pt-5">
+      <PostHeader {...post} />
       <Content />
     </article>
   );

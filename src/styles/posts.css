@@ -34,7 +34,9 @@
 }
 
 @layer components {
-  .post h1, h2, h3 {
+  .post h1,
+  h2,
+  h3 {
     @apply font-bold;
   }
 
