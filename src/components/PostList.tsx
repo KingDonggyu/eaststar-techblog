@@ -1,56 +1,46 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
+import { ClockIcon } from './Icons';
+import { Post } from 'contentlayer/generated';
 
-// const mock = [
-//   {
-//     id: 0,
-//     emoji: '🍀',
-//     title: '변경에 유연하게 React Query를 커스텀 해보자 (with NextJS)',
-//     introduce: '프론트엔드에 관한 깊은 이야기를 나눌 수 있는 오프라인 커뮤니티, 프론트엔드 다이빙 클럽을 소개합니다.',
-//     date: '2023.07.23',
-//   },
-//   {
-//     id: 1,
-//     emoji: '🏄‍♂️',
-//     title: '마우스 이벤트, 제대로 사용하고 계신가요? - 클릭과 터치',
-//     introduce: "'세 줄 독후감' 웹사이트를 운영하며, 최근 사용자들에게 한 오류를 제보 받았습니다.",
-//     date: '2023.07.20',
-//   },
-// ];
-
-export function PostList() {
+export function PostList({ posts }: { posts: Post[] }) {
   return (
-    <p className="text-xl text-center pt-10">블로그 개발 중..</p>
-    // <section>
-    //   <ul className="flex flex-col gap-12">
-    //     {mock.map(post => (
-    //       <PostItem key={post.id} {...post} />
-    //     ))}
-    //   </ul>
-    // </section>
+    <section>
+      <ul className="grid grid-cols-2 gap-12 mobile:grid-cols-1">
+        {posts.map(post => (
+          <PostItem key={post._raw.flattenedPath} {...post} />
+        ))}
+      </ul>
+    </section>
   );
 }
 
-interface PostItemProps {
-  id: number;
-  emoji: string;
-  title: string;
-  introduce: string;
-  date: string;
-}
-
-export function PostItem({ emoji, title, introduce, date }: PostItemProps) {
+export function PostItem({ url, image, title, introduce, createdAt }: Post) {
   return (
-    <li>
-      <Link href="/" aria-label="" tabIndex={0} className="group flex items-center gap-7">
-        <div className="text-7xl p-8 rounded-full border border-line transition-colors group-hover:border-primary">
-          {emoji}
-        </div>
-        <div className="flex flex-col gap-3">
-          <h3 className="text-2xl font-bold leading-snug transition-colors group-hover:text-primary">{title}</h3>
-          <p className="leading-normal">{introduce}</p>
-          <p className="text-sm text-date">{date}</p>
+    <li className="shadow-default transition-all duration-300 rounded-lg dark:bg-[#2d333b] hover:shadow-hover hover:scale-105">
+      <Link href={url} aria-label="" tabIndex={0}>
+        {image ? (
+          <Image
+            src={image}
+            width={300}
+            height={100}
+            alt="게시물 대표 이미지"
+            className="object-cover rounded-t-lg w-full h-40 mobile:h-48"
+          />
+        ) : (
+          <div className="rounded-t-lg w-full h-40 mobile:h-48 bg-primary" />
+        )}
+        <div className="w-full h-52 p-4 flex flex-col justify-between">
+          <div>
+            <h3 className="text-lg mb-3 font-bold leading-snug transition-colors">{title}</h3>
+            <p className="text-sm leading-normal">{introduce}</p>
+          </div>
+          <span className="text-sm text-date">
+            <ClockIcon className="w-5 inline-block align-middle mr-1" />
+            <span className="align-middle">{createdAt}</span>
+          </span>
         </div>
       </Link>
     </li>

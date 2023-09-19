@@ -18,7 +18,7 @@
   font-size: 1.5rem;
 }
 
-.post P {
+.post p {
   line-height: 1.8;
 }
 
@@ -34,12 +34,20 @@
 }
 
 @layer base {
+  .post h1, h2, h3 {
+    @apply font-bold;
+  }
+
+  .content p {
+    @apply text-lg leading-[1.9] my-6;
+  }
+  
   .post a {
     @apply hover:text-primary200 dark:hover:text-primary hover:decoration-theme-light dark:hover:decoration-theme-dark transition-colors;
   }
 
   .post blockquote {
-    @apply w-full bg-gray-50 dark:bg-gray-800 rounded-lg px-7 py-5 sm:p-4;
+    @apply w-full bg-gray-50 dark:bg-[#2d333b] rounded-lg px-7 py-5 sm:p-4;
   }
 
   .post code {

@@ -5,7 +5,7 @@ import { ThemeToggle } from './ThemeToggle';
 
 export function TopNavbar() {
   return (
-    <div className="fixed top-0 left-0 right-0 bg-theme-light dark:bg-theme-dark border-b border-line">
+    <div className="fixed top-0 left-0 right-0 bg-theme-light dark:bg-theme-dark border-b border-line z-10">
       <nav className="max-w-default m-auto p-4 flex justify-between items-center">
         <Link
           href="/"

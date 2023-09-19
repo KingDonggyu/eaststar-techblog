@@ -7,6 +7,8 @@ import {
   ComputerDesktopIcon,
 } from '@heroicons/react/24/solid';
 
+import { ClockIcon as ClockOutlineIcon } from '@heroicons/react/24/outline';
+
 export function MailIcon({ className }: { className?: string }) {
   return <EnvelopeIcon className={className} />;
 }
@@ -37,4 +39,8 @@ export function ArrowDownIcon({ className }: { className?: string }) {
 
 export function DesktopIcon({ className }: { className?: string }) {
   return <ComputerDesktopIcon className={className} />;
+}
+
+export function ClockIcon({ className }: { className?: string }) {
+  return <ClockOutlineIcon className={className} />;
 }
