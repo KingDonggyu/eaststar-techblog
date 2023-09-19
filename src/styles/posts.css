@@ -33,25 +33,21 @@
   line-height: 1.8;
 }
 
-@layer base {
+@layer components {
   .post h1, h2, h3 {
     @apply font-bold;
   }
 
   .content p {
-    @apply text-lg leading-[1.9] my-6;
+    @apply text-lg !leading-[1.9] my-6;
   }
-  
+
   .post a {
     @apply hover:text-primary200 dark:hover:text-primary hover:decoration-theme-light dark:hover:decoration-theme-dark transition-colors;
   }
 
   .post blockquote {
     @apply w-full bg-gray-50 dark:bg-[#2d333b] rounded-lg px-7 py-5 sm:p-4;
-  }
-
-  .post code {
-    @apply bg-gray-100 text-rose-600 text-xs rounded-md px-2 py-1 mr-2 mb-2;
   }
 
   .post ul {
@@ -64,5 +60,17 @@
 
   .post hr {
     @apply my-5 text-line;
+  }
+
+  .post p > code {
+    @apply bg-emerald-50 dark:bg-slate-800 text-primary200 dark:text-primary text-sm rounded-md p-1;
+  }
+
+  .post pre {
+    @apply overflow-x-auto text-sm py-5 rounded-lg shadow-hover !bg-[#22243a];
+  }
+
+  .post pre > code > span {
+    @apply px-5;
   }
 }

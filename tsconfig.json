@@ -21,9 +21,18 @@
       }
     ],
     "paths": {
-      "public/*": ["../public/*"]
+      "contents/*": ["../contents/*"],
+      "contentlayer/generated": ["../.contentlayer/generated"],
+      "contentlayer/generated/*": ["../.contentlayer/generated/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/GA.jsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/components/GA.jsx",
+    "./.contentlayer/generated"
+  ],
   "exclude": ["node_modules"]
 }
