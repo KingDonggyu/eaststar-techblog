@@ -45,7 +45,7 @@
   }
 
   .post a {
-    @apply hover:text-primary200 dark:hover:text-primary hover:decoration-theme-light dark:hover:decoration-theme-dark transition-colors;
+    @apply hover:text-primary hover:decoration-theme-light dark:hover:decoration-theme-dark transition-colors;
   }
 
   .post blockquote {
