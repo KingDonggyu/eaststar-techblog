@@ -4,7 +4,7 @@ const colors = {
   white: 'white',
   dark: '#22272e',
   gray: '#e5e7eb',
-  gray200: '#6b7280',
+  gray200: '#778899',
   gray300: '#424242',
 };
 

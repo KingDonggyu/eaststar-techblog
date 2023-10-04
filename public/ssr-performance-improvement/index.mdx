@@ -1,0 +1,161 @@
+---
+title: SSR이 독이 될 수도 있다? - SSR 성능 개선기
+introduce: 무분별한 서버 사이드 렌더링(SSR)을 개선하여 성능을 향상시킨 경험을 소개합니다.
+createdAt: '2023.07.28'
+tags: ['frontend', 'next.js']
+category: 개발
+image: '/ssr-performance-improvement/3.png'
+---
+
+오랜만에 글을 쓰네요. 요근래 취업 준비, 기존 프로젝트 리팩토링 등을 수행하며 글 쓰기를 자꾸 미뤘던 것 같아요.
+
+이번 글에서는 가장 최근에 작성한 [프로젝트 회고 글](/post/sejulbook-retrospect)에서 언급했던, 현재 운영 중인 웹 사이트의 느린 서버 사이드 렌더링 속도 문제를 개선한 경험에 대해 공유해보려 합니다.
+
+<br />
+
+## 체감되는 느린 서버 사이드 렌더링
+
+제가 만들었음에도 너무 느려 보였습니다. 특히 맨 처음 웹 사이트에 접속하게 되면, 서버리스 애플리케이션 특성 상 발생하게 되는 **콜드 스타트(Cold Start)** 문제로 인하여 더욱 느려 좋지 않은 사용자 경험을 유발합니다.
+
+콜드 스타트가 뭐냐구요? 아래 ChatGPT 답변을 참고해주세요 😅
+
+<img src="/ssr-performance-improvement/1.png" alt="ChatGPT 답변 이미지" />
+<em>"서버리스 애플리케이션의 콜드 스타트가 뭐야?"에 대한 ChatGPT 답변</em>
+
+<br />
+
+이러한 콜드 스타트에 느린 서버 사이드 렌더링 속도(분석 결과 약 1.33초)까지 더해진 상태가 된 것입니다. 
+이를 어떻게 개선할 수 있을까 파악한 결과, **모든 것을 서버 사이드 렌더링하려 한다는 점이 문제**라 판단했습니다.
+
+아래는 홈페이지(`pages/index.tsx`)의 `getServerSideProps` 코드입니다.
+
+```ts
+export const getServerSideProps = async ({
+  req,
+  res,
+}: GetServerSidePropsContext) => {
+  const { userId } = await checkIsLoggedIn(ctx);
+
+  const queryClient = await prefetchQuery([
+    getUserQuery(userId),
+    getFollowingBookReviewListQuery(userId),
+    getLatestBookReviewListQuery,
+    getMostLikedBookReviewListQuery,
+  ]);
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+      myUserId: userId,
+    },
+  };
+};
+```
+
+`prefetchQuery` 부분을 보면 4가지 자원에 대해 서버에 요청하고 있습니다.
+
+1. 사용자 정보
+2. 팔로우한 사용자들의 독후감 리스트
+3. 최근 작성된 독후감 리스트
+4. 좋아요 수가 많은 독후감 리스트
+
+이 4가지 자원에 대해 서버에서는 데이터베이스 쿼리를 마구 던지고 있겠죠. 
+더군다나 2, 3, 4번에 대한 독후감 리스트는 브라우저 화면에 이미지로 렌더링이 됩니다.
+
+<img src="/ssr-performance-improvement/2.png" alt="홈페이지 내 독후감 목록 이미지" />
+<em>'세 줄 독후감' 웹 사이트 홈페이지 내 독후감 목록</em>
+
+가려져 있지만 총 30개의 이미지가 브라우저에 렌더링되어 있습니다.
+이를 보고 모든 자원에 대해 서버 사이드 렌더링을 할 필요가 있을까 의문이 들었습니다.
+
+<br />
+
+## 부분별 클라이언트 사이드 렌더링
+
+서버 사이드 렌더링 속도를 줄이기 위해서 서버 사이드 렌더링이 하는 일을 덜어 주기로 했습니다. 
+바로, **클라이언트 사이드 렌더링을 적용**하는 것이죠.
+
+물론 전체 콘텐츠가 모두 로드되기까지의 시간은 늘어날 것입니다.
+하지만 부분별 클라이언트 사이드 렌더링을 적용하는 것이 현 시점에서 더 높은 사용자 경험을 제공할 수 있을 것이라 판단했습니다.
+아무 것도 보이지 않은채 페이지 전체가 로드되기 만을 기다리는 것이 오히려 독이 될 수도 있겠다 생각했기 때문입니다.
+
+<br />
+
+그래서 어떤 자원들에 대해 클라이언트 사이드 렌더링을 적용해야 할까 기준을 정했습니다.
+
+- 검색 엔진 최적화에 영향을 미치지 않는 자원
+- 초기 화면(viewport)에 노출되지 않는 자원
+- 크기가 큰 이미지 리스트
+
+이러한 세 기준들에 대해 여러 부분들을 선정하고 클라이언트 사이드 렌더링을 적용했습니다.
+
+<br />
+
+다시 홈페이지(`pages/index.tsx`)의 `getServerSideProps` 코드입니다.
+
+```ts
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  const { userId } = await checkIsLoggedIn(ctx);
+  return { props: { myUserId: userId } };
+};
+```
+
+기존에 prefetch했던 아래 네 가지 자원들에 대한 서버 사이드 렌더링을 제거했습니다.
+
+1. 사용자 정보
+2. 팔로우한 사용자들의 독후감 리스트
+3. 최근 작성된 독후감 리스트
+4. 좋아요 수가 많은 독후감 리스트
+
+<br />
+
+그리고 각 독후감 리스트에 대한 클라이언트 사이드 렌더링 중 **Skeleton UI 로딩을 적용**하여 사용자 경험을 향상시키고자 했습니다.
+
+<img src="/ssr-performance-improvement/3.png" alt="Skeleton UI 로딩 적용 화면 이미지" />
+<em>독후감 리스트 Skeleton UI 로딩 화면</em>
+
+<br />
+
+## 결과
+
+전체 페이지에 대해 부분별 클라이언트 사이드 렌더링을 적용했습니다. 그 중 홈페이지에 대한 성능 변화 결과를 소개하겠습니다. 
+
+아래는 **개선 전 Lighthouse 성능 분석 결과**입니다.
+
+<img src="/ssr-performance-improvement/4.png" alt="개선 전 Lighthouse 성능 분석 결과 이미지" />
+
+<br />
+
+아래는 **개선 후 Lighthouse 성능 분석 결과**입니다.
+
+<img src="/ssr-performance-improvement/5.png" alt="개선 후 Lighthouse 성능 분석 결과 이미지" />
+
+<br />
+
+Firtst Contentful Paint(FCP), Speed Index 지표가 개선된 것을 확인할 수 있습니다.
+예상대로 페이지의 메인 콘텐츠가 화면에 모두 렌더링되는 시간 Largest Contentful Paint(LCP) 지표는 하락되었습니다.
+
+하지만 위에서 언급한 것처럼 **사용자가 페이지를 더 빠르게 인식하고 상호작용할 수 있게 되었기 때문에 긍정적인 결과라 생각합니다.**
+
+**브라우저가 서버에서 HTML을 응답 받는 시간은 1.33초에서 0.177초로 대폭 줄어들었습니다.**
+즉, **서버 사이드 렌더링 속도가 87% 개선**되었습니다. 확실히 빨라 진것이 체감되었습니다 😆
+
+<br />
+
+<p className="text-center">
+  <strong>.</strong>
+</p>
+
+<p className="text-center">
+  <strong>.</strong>
+</p>
+
+<p className="text-center">
+  <strong>.</strong>
+</p>
+
+<br />
+
+Next.js를 이용하며 모든 자원에 대해 서버 사이드 렌더링을 적용하는 것을 당연하게 여겼던 것 같습니다.
+
+이번 경험으로 상황에 맞게 서버 사이드 렌더링, 클라이언트 사이드 렌더링을 잘 섞어 쓰는 것이 매우 중요하다고 느낍니다.

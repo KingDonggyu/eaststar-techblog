@@ -1,0 +1,524 @@
+---
+title: 나만의 Vanilla JavaScript 컴포넌트 구현기
+introduce: Vanilla JavaScript로 SPA 개발을 위해 나만의 컴포넌트를 구현한 경험을 공유합니다.
+createdAt: '2022.10.14'
+tags: ['frontend', 'javascript']
+category: 개발
+image: /my-vanillajs-component/1.png
+---
+
+안녕하세요 동쪽별입니다.
+최근에 바닐라 자바스크립트로 SPA(Single Page Application)를 개발해 봤습니다.
+이와 관련하여 SPA 개발을 위한 컴포넌트를 구현한 경험에 대해 공유해보려 합니다.
+
+<br />
+
+## 컴포넌트?
+
+컴포넌트는 리액트(React)로 만들어진 앱을 이루는 가장 최소한의 단위로, 리액트에서 가장 중요한 구성요소입니다.
+그래서 컴포넌트가 정확히 무엇일까요?
+실제 리액트 공식 문서의 [Components and Props](https://legacy.reactjs.org/docs/components-and-props.html) 부문을 보면 아래 문장이 명시되어 있습니다.
+
+>  Conceptually, components are like **JavaScript functions.** They accept arbitrary inputs (called “props”) and return React elements describing what should appear on the screen.
+
+즉, **컴포넌트란 데이터를 입력받아 DOM Element를 출력하는 자바스크립트 함수**라 할 수 있을 것 같습니다.=
+따라서 **입력받는 데이터의 변경에 따라 출력 결과를 다르게 함**으로써, 컴포넌트를 리렌더링하여 SPA를 개발할 수 있습니다.
+
+**그럼 이러한 컴포넌트를 왜 사용할까요?**
+
+<br />
+
+<img src="/my-vanillajs-component/1.png" />
+<em>출처: https://hanamon.kr/컴포넌트-component란</em>
+
+컴포넌트를 프로그래밍에 있어 각각의 독립된 모듈로 만들어, **재사용이 가능**하도록 할 수 있습니다.
+또한, 입력받는 데이터의 변경에 따라 필요한 컴포넌트만을 다르게 함으로써 **동적으로 화면의 변경**을 일으킬 수 있습니다.
+
+<br />
+
+## 무엇이 필요할까?
+
+이러한 컴포넌트를 구현하려면 무엇이 필요할까요?
+위에서 언급했던 컴포넌트의 정의를 기반으로 해봅시다.
+
+- 데이터를 입력 받을 수 있어야 합니다.
+- DOM Element를 출력할 수 있어야 합니다.
+- 입력 데이터의 변경에 따라 출력 결과를 다르게 할 수 있어야 합니다.
+
+먼저 DOM Element를 출력한다는 것이 무엇을 의미할까요?
+바로, DOM Element가 화면에 보여지는 것입니다. 
+즉 **렌더링**되는 것이죠!
+
+입력 데이터의 변경에 따라 출력 결과를 다르게 한다고 했죠?
+그럼 다르게 렌더링되는, 즉 리렌더링되는 조건이 바로 입력 데이터가 되겠네요.
+네, 바로 **state(상태)** 입니다!
+
+이를 기반으로 컴포넌트를 구현하기 위해 무엇이 필요할지 다시 한번 생각해봅시다.
+
+- state를 정의할 수 있어야 합니다.
+- 원하는 Element를 생성하고, state를 기반으로 렌더링 할 수 있어야 합니다.
+- state의 변경에 따라 생성한 Element를 리렌더링 할 수 있어야 합니다.
+
+<br />
+
+## 구현하기
+
+위에서 다루었던 조건을 기반으로 추상화해보겠습니다.
+
+```js
+class Component {
+  constructor(parent) {
+    parent.appendChild(this.element);
+  }
+
+  render() {}
+
+  setState(nextState) {
+    this.state = { ...this.state, ...nextState };
+    render();
+  }
+}
+
+export default Component;
+```
+
+`setState` 메서드를 통해 `state`가 변경되면 다시 `render` 메서드를 호출함으로써 DOM Element의 출력 결과를 다르게, 즉 **리렌더링**합니다.
+
+위 `Component` 클래스를 상속받아 아래와 같이 사용할 수 있습니다.
+
+```js
+import Component from 'core/Component';
+import BackButton from 'components/BackButton';
+
+class NavBar extends Component {
+  constructor({ parent }) {
+    super(parent);
+    this.state = { title: '로그인' };
+    this.element = document.createElement('div');
+    this.element.className = 'nav-wrapper';
+    this.render();
+  }
+  
+  render() {
+    const navItem = document.createElement('div');
+    navItem.className = 'nav-item left';
+    new BackButton({ parent: this.element });
+  
+    this.element.innerHTML = `
+      <div class='nav-item middle'>${this.state.title}</div>
+      <div class='nav-item right'>
+      	<button type='button'>완료</button>
+      </div>
+    `;
+  }
+}
+
+export default NavBar;
+```
+
+<br />
+
+이것이 제가 첫번째로 구현한 `Component` 클래스입니다.
+하지만 여러 의문점이 들었습니다.
+
+1. `render` 메서드 내에 어떤 코드가 들어갈지 어떻게 알아?
+이 메서드는 View를 그리는 역할만 했으면 좋겠는데..
+2. DOM에 생성한 Element를 `appendChild`로 붙인 상태에서 여러 작업을 하고 있는데, 자식 컴포넌트 깊이가 커지면 렌더링 성능이 저하되지는 않을까?
+DOM에 달려있는 Element의 조작은 리플로우를 빈번하게 발생시키는데..
+
+<br />
+
+## 개선하기
+
+### **1. `render` 메서드가 View를 그리는 관심사만을 가지도록 제한하자.**
+
+```js
+class Component {  
+  constructor(parent) {
+    this.parent = parent;
+  }
+
+  render(html) {
+    const fragment = document.createElement('div');
+    fragment.innerHTML = html;
+    
+    this.element = fragment.firstElementChild;
+    this.parent.appendChild(this.element);
+  }
+
+  setState(nextState) {
+    this.state = { ...this.state, ...nextState };
+    render();
+  }
+}
+
+export default Component;
+```
+
+`render` 메서드가 HTML 문자열을 인자로 받도록 변경했습니다.
+그리고 빈 Element를 이용하여 해당 문자열의 최상단 Element를 `this.element`로 정의하도록 했습니다.
+이렇게 하면 `render` 메서드 내부에 예측 불가한 작업이 오는 것을 방지할 수 있으며, `Component` 클래스의 자식 클래스에서 Element를 생성하는 수고를 덜 수 있습니다.
+
+그런데.. 이렇게 하면 리렌더링은 어떻게 하지..?
+본래는 `render` 메서드를 재호출함으로써 리렌더링을 수행했습니다.
+새로 개선한 `render` 메서드 또한 리렌더링이 가능하도록 변경해봅시다.
+
+```js
+class Component {  
+  constructor(parent) {
+    this.parent = parent;
+    this.parent.appendChild(this.element);
+  }
+
+  render(html, isRerender = false) {
+    this.html = html;
+    
+    const fragment = document.createElement('div');
+    fragment.innerHTML = html;
+    
+    const element = fragment.firstElementChild;
+    isRerender && this.parent.replaceChild(element, this.element);
+    
+    this.element = element;
+    !isRerender && this.parent.appendChild(this.element);
+  }
+  
+  rerender() {
+    this.html && this.render(this.html);
+  }
+
+  setState(nextState) {
+    this.state = { ...this.state, ...nextState };
+    rerender();
+  }
+}
+
+export default Component;
+```
+
+`rerender` 라는 메서드를 추가했습니다.
+`rerender` 메서드가 호출될시 저장한 this.html을 통해 다시 HTML을 그리도록 합니다.
+그리고 `isRerender`라는 인자를 통해 부모 Element의 자식 Element를 변경하고, `appendChild`는 수행하지 않도록 합니다.
+
+그런데 여기서 치명적인 문제점이 또 발생했습니다.
+리렌더링을 위해 `this.html`로 이전 html 문자열을 저장했습니다. 문자열을요..!
+그래서 상태 변경이 되어도 다른 화면이 아닌, 이전의 화면이 그대로 렌더링됩니다.
+
+```js
+render(`<div>${this.state.name}</div>`);
+```
+
+위 `render` 메서드가 호출될시 `"<div>짱구</div>"` 라는 문자열이 저장된다 가정해봅시다.
+만약 `setState` 메서드를 호출하여 `this.state.name`이 `"철수"`로 변경되었을때, `rerender` 메서드가 호출되어 this.html을 다시 `render`로 보냅니다.
+하지만 `this.html`에는 `"<div>짱구</div>"` 가 그대로 저장되어있죠..
+이 문제는 아래에서 함께 해결해보겠습니다.
+
+<br />
+
+### **2. 리플로우를 최소화하여 렌더링 성능을 최적화하자.**
+
+`appendChild` 이전, 즉 DOM에 해당 컴포넌트가 부착되기 전에 Element를 조작할 수 있도록 해봅시다.
+
+```js
+class Component {  
+  
+  ...
+
+  render(html, isRerender = false) {
+    this.html = html;
+    
+    const fragment = document.createElement('div');
+    fragment.innerHTML = html;
+    
+    const element = fragment.firstElementChild;
+    isRerender && this.parent.replaceChild(element, this.element);
+    
+    this.element = element;
+    
+    // 이 부분에 Element 조작을 할 수는 없을까?
+    
+    !isRerender && this.parent.appendChild(this.element);
+  }
+  
+  ...
+  
+}
+```
+
+위 코드의 주석이 있는 위치에 Element 조작을 하고 싶었습니다.
+여러 고민 끝에, 콜백 함수를 이용하기로 했습니다.
+
+```js
+class Component {  
+  
+  ...
+
+  render(html, handleElement = () => {}, isRerender = false) {
+    this.html = html;
+    this.handleElement = handleElement;
+    
+    const fragment = document.createElement('div');
+    fragment.innerHTML = html;
+    
+    const element = fragment.firstElementChild;
+    isRerender && this.parent.replaceChild(element, this.element);
+    
+    this.element = element;
+    this.handleElement && this.handleElement(this.element);
+    !isRerender && this.parent.appendChild(this.element);
+  }
+  
+  rerender() {
+    this.html && this.render(this.html, this.handleElement, true);
+  }
+  
+  ...
+  
+}
+```
+
+위 `Component` 클래스의 `render` 메서드를 아래와 같이 이용할 수 있습니다.
+
+```js
+import Component from 'core/Component';
+import BackButton from 'components/BackButton';
+
+class NavBar extends Component {
+  constructor({ parent }) {
+    super(parent);
+    this.state = { title: '로그인' };
+    this.render(`<div class='nav-wrapper'></div>`, (element) => {
+      this.createNavItems(element);
+    });
+  }
+  
+  createNavItems(parent) {
+    this.createBackButton(parent);
+    const fragment = document.createElement('template');
+    fragment.innerHTML = `
+      <div class='nav-item middle'>${this.state.title}</div>
+      <div class='nav-item right'>
+      	<button type='button'>완료</button>
+      </div>
+    `;
+    parent.appendChild(fragment.content);
+  }
+  
+  createBackButton(parent) {
+    const navItem = document.createElement('div');
+    navItem.class = 'nav-item left';
+    new BackButton({ parent: navItem });
+    parent.appendChild(navItem);
+  }
+}
+
+export default NavBar;
+```
+
+이처럼 콜백 함수의 인자로 전달받은 `element`를 이용하여 `appendChild` 이전에 Element 조작이 가능해졌습니다!
+또한, 해당 콜백 함수 `handleElement` 는 리렌더링될 시 다시 호출되기 때문에, 위에서 우려했던 `this.html` 문자열 문제를 해결할 수 있습니다.
+리렌더링되는 요소는 `html`이 아닌 `handleElement` 콜백 함수 내에서 정의하면 되니까요!
+
+<br />
+
+## 이벤트 바인딩 메서드 추가하기
+
+위에서 구현한 `Componenent` 클래스를 이용하여 여러 컴포넌트를 구현하던 중, 이벤트 바인딩 부분 또한 추상화하고 싶어졌습니다.
+매번 `addEventListener` 메서드를 사용하는게 싫었거든요..
+또한 더 가독성이 좋은 코드를 작성하고 싶었습니다.
+
+`bindEvents` 메서드를 추가했습니다.
+
+```js
+class Component {
+
+  ...
+  
+  bindEvents(eventListeners) {
+    eventListeners.forEach(({ element, type, listener }) => {
+      element = element || this.element;
+      element.addEventListener(type, listener);
+    });
+  }
+  
+  ...
+  
+}
+```
+
+`{ element, type, listener }` 형태의 객체를 원소로 가진 배열 `eventListeners` 를 인자로 받습니다.
+그리고 해당 배열을 순회하며 이벤트를 등록하는 것이죠.
+만약 `element` 가 정의되지 않았을시 `this.element` 를 참조하도록 했습니다.
+
+해당 `bindEvents` 메서드는 아래와 같이 사용할 수 있습니다.
+
+```js
+import Component from 'core/Component';
+
+class SignIn extends Component {
+  constructor({ parent }) {
+    super(parent);
+    
+    this.render(
+      ...
+    );
+    
+    this.bindEvents([
+      {
+        type: 'input',
+        listener: this.handleInput
+      },
+      {
+        element: this.signInBtn,
+        type: 'click',
+        listener: this.handleClickSignInBtn.bind(this)
+      },
+      {
+        element: this.signUpBtn,
+        type: 'click',
+        listener: this.handleClickSignUpBtn
+      }
+    ]);
+  }
+  
+  ...
+  
+}
+
+export default SignIn
+```
+
+더 직관적이게 되지 않았나요? (저만 그런가요..🤣)
+
+<br />
+
+## 최종 코드 - JavaScript
+
+아래는 JavaScript로 작성한 `Component` 클래스 최종 코드입니다.
+
+```js
+class Component {  
+  constructor(parent) {
+    this.parent = parent;
+  }
+
+  render(html, handleElement = () => {}, isRerender = false) {
+    this.html = html;
+    this.handleElement = handleElement;
+    
+    const fragment = document.createElement('div');
+    fragment.innerHTML = html;
+    
+    const element = fragment.firstElementChild;
+    isRerender && this.parent.replaceChild(element, this.element);
+    
+    this.element = element;
+    this.handleElement && this.handleElement(this.element);
+    !isRerender && this.parent.appendChild(this.element);
+  }
+  
+  rerender() {
+    this.html && this.render(this.html, this.handleElement, true);
+  }
+  
+  setState(nextState) {
+    this.state = { ...this.state, ...nextState };
+    this.rerender();
+  }
+  
+  bindEvents(eventListeners) {
+    eventListeners.forEach(({ element, type, listener }) => {
+      element = element || this.element;
+      element.addEventListener(type, listener);
+    });
+  }
+}
+
+export default Component;
+```
+
+<br />
+
+## 최종 코드 - TypeScript
+
+아래는 TypeScript로 작성한 `Component` 클래스 코드입니다.
+
+```ts
+interface EventListenerProps {
+  element?: HTMLElement;
+  type: keyof HTMLElementEventMap;
+  listener: EventListener;
+}
+
+class Component {
+  protected parent!: HTMLElement;
+  protected element!: HTMLElement;
+  protected state: any;
+
+  private html?: string;
+  private handleElement?: (element: HTMLElement) => void;
+
+  constructor(parent: HTMLElement) {
+    this.parent = parent;
+  }
+
+  protected render(
+    html: string,
+    handleElement?: (element: HTMLElement) => void,
+    isRerender = false
+  ) {    
+    this.html = html;
+    this.handleElement = handleElement;
+
+    const fragment = document.createElement('div');
+    fragment.innerHTML = this.html;
+
+    const element = fragment.firstElementChild as HTMLElement;
+    isRerender && this.parent.replaceChild(element, this.element);
+    
+    this.element = element;
+    this.handleElement && this.handleElement(this.element);
+    !isRerender && this.parent?.appendChild(this.element);
+  }
+
+  protected setState(nextState: Object) {
+    this.state = { ...this.state, ...nextState };
+    this.rerender();
+  }
+
+  protected rerender() {
+    this.html && this.render(this.html, this.handleElement, true);
+  }
+
+  protected bindEvents(eventListeners: EventListenerProps[]) {
+    eventListeners.forEach(({ element, type, listener }) => {
+      element = element || this.element;
+      element.addEventListener(type, listener);
+    });
+  }
+}
+
+export default Component;
+```
+
+<br />
+
+<p className="text-center">
+  <strong>.</strong>
+</p>
+
+<p className="text-center">
+  <strong>.</strong>
+</p>
+
+<p className="text-center">
+  <strong>.</strong>
+</p>
+
+<br />
+
+이렇게 저의 Vanilla JavaScript 컴포넌트 구현기가 막을 내렸습니다.
+사실 이러한 컴포넌트 구현에 대한 코드는 검색하면 금방 볼 수 있지만, 저만의 컴포넌트를 만들어보고 싶었습니다.
+
+그래서 다른 사람들이 구현한 방식에 비해 좋은 코드가 아닐 수 있지만, 현재로서는 만족하며 나만의 컴포넌트를 사용하고 있습니다 😁
+혹시나 잘못된 접근 방법 또는 개선할 여지가 있다면, 댓글 달아주시면 감사하겠습니다!

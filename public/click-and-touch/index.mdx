@@ -1,0 +1,249 @@
+---
+title: 마우스 이벤트, 제대로 사용하고 계신가요? - 클릭과 터치
+introduce: "'세 줄 독후감' 웹사이트를 운영하며, 한 사용자에게 오류를 제보 받았습니다."
+createdAt: '2023.05.03'
+tags: ['frontend', 'javascript']
+category: 개발
+image: '/click-and-touch/5.jpeg'
+---
+
+['세 줄 독후감'](https://www.sejulbook.com/) 웹사이트를 운영하며, 최근 사용자들에게 한 오류를 제보 받았습니다.
+아래 독후감 평점 입력 기능이 동작하지 않는다는 것이었습니다.
+
+<br />
+
+<img src="/click-and-touch/1.gif" alt="평점 기능 gif 이미지" width="500px" />
+<em>독후감 작성 페이지 내 평점 기능</em>
+
+<br />
+
+## 근본적인 원인을 찾아보자
+
+먼저 데스크톱 환경에서 평점 기능을 사용해보자 별 이상 없이 동작했습니다. "왜 안된다는 거지..?"
+당황했지만.. 무려 2명의 사용자가 동일한 오류를 제보해주셨기에, 틀림없이 문제가 존재한다고 판단했습니다.
+하지만 계속해서 여러 방식으로 평점 기능을 요리조리 사용해보아도 별 문제가 없었습니다..😨
+
+그러다! **모바일 환경에서 테스트**를 해보자 곧바로 오류를 발견할 수 있었습니다.
+오류가 발생하는 순서는 다음과 같습니다.
+
+1. 3으로 초기화된 평점 5을 터치
+2. 별점 다섯 칸 활성화
+3. 평점 제외 다른 영역 터치
+4. 별점 세 칸 활성화
+
+**원하는 평점을 터치해도, 결국 디폴트 값인 3으로 되돌아 가는 오류**였습니다.
+그런데 왜 모바일 기기에서만 이러한 현상이 발생한 것일까요?
+
+<br />
+
+<img src="/click-and-touch/2.png" alt="It doesn't work.. why? I works.. why?" width="350px" />
+
+<br />
+
+먼저 구현한 평점 입력 기능을 자세히 파악해 봤습니다.
+평점 입력 기능은 크게 아래 이벤트로 동작합니다.
+
+1. `click`: 별점 클릭시, 별점 선택
+2. `mouseover`: 커서를 별점 안으로 이동할시, 해당 별점까지 색 변경 (흰색 -> 초록색)
+3. `mouseleave`: 커서를 별점 밖으로 이동할시, 선택한 별점으로 다시 초기화 (원래 색으로 되돌리기)
+
+3개의 마우스 이벤트가 바인딩되어 있습니다. 어라?
+**"모바일 기기는 마우스가 없잖아 😱"**
+정확한 원인이 아닐 수도 있지만 매우 수상했습니다.
+그래서 **모바일 기기에서의 터치 이벤트에 대해 자세히 학습**했고, 아래 사실을 알 수 있었습니다.
+
+<br />
+
+<img src="/click-and-touch/3.png" alt="Sequence of events" />
+<em>참조: https://ui.toast.com/posts/ko_20220106</em>
+
+<br />
+
+모바일 기기에서 터치 동작을 할 시, 위와 같은 순서로 이벤트가 발생합니다. (왼쪽에서 두번째)
+**터치 이벤트 발생시 마우스 이벤트 또한 같이 발생**하는 것을 알 수 있습니다.
+
+그러다 궁금증이 생겼습니다.
+학습한 터치 이벤트의 특징을 보았을 때, 평점 입력 기능에 사용한 마우스 이벤트인 `mouseover` 또한 발생할 것이 분명했습니다.
+"그런데 모바일 기기 환경에서 `mouseover` 이벤트가 애초에 발생할 수가 있나..?"
+
+그래서 테스트해봤습니다.
+
+<br />
+
+<img src="/click-and-touch/4.gif" alt="평점 기능 관련 이벤트 출력 gif 이미지" />
+
+<br />
+
+모바일 기기 환경에서 평점을 터치하자 `mouseover`, `click` 이벤트가 연이어 함께 발생했습니다.
+`mouseover` 이벤트.. 이 녀석이 범인일 것이라는 냄새가 스멀스멀 나기 시작했습니다.
+확실히 원인을 파악하기 위해 **터치와 클릭의 차이점을 분석**했습니다.
+
+<br />
+
+## 터치와 클릭의 차이점
+
+**1. 마우스는 화면 위에 항상 떠 있고, 터치는 그렇지 않다.**
+
+- 두 요소를 클릭할 때, 두 클릭 행위를 이어주는 `mousemove` 동작을 수행한다.
+- 두 요소를 터치할 때, 화면은 두 터치 행위를 이어주는 동작을 알 수 없다.
+
+**2. 클릭은 단 하나의 포인터를 이용해 상호작용 하지만, 터치는 2개 이상의 터치 포인터로 상호작용할 수 있다.**
+
+- 모바일 장치를 이용할 때, 2개 이상의 터치 포인터로 줌-인, 아웃, 회전 등 멀티 터치 제스쳐를 사용할 수 있다.
+
+<br />
+
+이러한 차이점을 보았을 때, 2번 이상의 터치는 클릭과 다른 면모를 보입니다.
+화면은 두 터치 행위를 이어주는 동작을 알 수 없고, 터치는 2개 이상의 포인터로 상호작용할 수 있습니다.
+
+이 특징 때문에 **모바일 기기에서 특정 엘리먼트를 터치를 하게 되면, 브라우저는 터치 포인터가 해당 엘리먼트 위에 머물고 있다고 인식하게 됩니다.**
+
+**마우스가 계속 움직이면서(mousemove) 상호작용하는 것과 달리, 다른 곳을 터치해 상호작용을 다시 발생시키지 않는 이상 mouseover 효과가 계속 유지되는 것이죠.**
+
+<br />
+
+<img src="/click-and-touch/5.jpeg" alt="코난 이미지" />
+<em>"범인은 바로 너"</em>
+
+<br />
+
+### * 원인 발견
+
+`mouseover` 이벤트가 범인이었습니다.
+
+평점을 터치할 시 `mouseover` 이벤트가 발생하여 별점이 색칠된 것이지, `click` 이벤트가 발생한 게 아닌 것입니다.
+브라우저는 터치 포인터가 별점 엘리먼트 위에 머물고 있는 것으로 판단할 것이고, 따라서 해당 별점을 한번 더 터치하면 그제서야 `click` 이벤트가 발생합니다.
+(실제로 평점을 두번 터치하니 잘 동작했습니다.)
+
+문제 해결을 넘어 근본적인 원인을 찾는 과정이 재밌기도 했고, 많이 배울 수 있었습니다 👍
+
+<br />
+
+## 해결하기
+
+해결법은 간단합니다.
+**모바일 기기 환경일 시, `click`을 제외한 마우스 이벤트(`mouseover`, `mouseleave`)를 바인딩하지 하지 않으면 됩니다.**
+먼저 모바일 기기 환경인지 확인해봅시다.
+
+<br />
+
+### 1. DOM 이벤트 중 터치 이벤트 확인
+
+DOM이 터치 이벤트를 만들 수 있으면 모바일 기기로 감지하는 방법입니다.
+하지만 **모바일 외에 노트북도 터치 가능한 기기가 있기 때문에 정확성이 떨어질 수 있습니다.**
+
+```js
+const isMobile = ('ontouchstart' in window)||
+	(navigator.maxTouchPoints > 0)||
+	(navigator.msMaxTouchPoints > 0));
+```
+
+<br />
+<br />
+
+### 2. window.navigator.userAgent 확인
+
+`window.navigator.userAgent`는 HTTP 요청을 보내는 디바이스와 브라우저 등의 식별 정보를 담고 있는 header의 한 종류입니다.
+
+```js
+const checkIsMobile = () => {
+  const mobileRegex = [
+      /Android/i,
+      /iPhone/i,
+      /iPad/i,
+      /iPod/i,
+      /BlackBerry/i,
+      /Windows Phone/i,
+  ];
+
+  const agent = window.navigator.userAgent;
+  const isMobile = mobileRegex.some((regex) => agent.match(regex));
+
+  return isMobile;
+}
+```
+
+<br />
+<br />
+
+### 3. 서버 사이드 렌더링에서 확인하기
+
+Next.js와 같은 프레임워크를 사용하여 서버 사이드 렌더링을 개발할 때는 위 함수를 그대로 사용하면 안됩니다.
+서버 사이드 렌더링 시에는 `window` 객체를 사용하지 못하기 때문에 `window.navigator.userAgent`에 접근하지 못하기 때문입니다.
+따라서 아래와 같이 커스텀 Hook으로 적용합니다.
+
+```js
+import { useEffect, useState } from 'react';
+
+const useMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mobileRegex = [
+      /Android/i,
+      /iPhone/i,
+      /iPad/i,
+      /iPod/i,
+      /BlackBerry/i,
+      /Windows Phone/i,
+    ];
+
+    const agent = window.navigator.userAgent;
+    setIsMobile(mobileRegex.some((regex) => agent.match(regex)));
+  }, []);
+
+  return isMobile;
+};
+
+export default useMobile;
+```
+
+`useEffect` Hook을 사용하여 컴포넌트가 마운트 되었음을 감지하여 클라이언트 사이드 렌더링 시 `window.navigator.userAgent`에 접근하는 방법입니다.
+
+<br />
+
+이와 같은 방법으로 모바일 기기인지 확인한 다음, **모바일 기기 환경일 시 `mouseover`, `mouseleave` 이벤트를 바인딩하지 않는 방법으로 문제를 해결**할 수 있었습니다!
+
+<br />
+
+## CSS :hover 너도 문제야
+
+`mouseover` 이벤트와 마찬가지로 CSS hover 가상 클래스 또한 터치 동작으로 인해 예상치 못한 사이드 이팩트가 발생할 수 있습니다.
+이를 해결하기 위해 위에서 알아본 것과 같이, **모바일 기기 환경인지 판단하고 그에 따라 hover 스타일을 비활성화 방법**이 있습니다.
+
+그리고 **미디어 쿼리를 이용하는 방법**이 있습니다.
+
+```css
+@media(hover: hover) and (pointer: fine) {
+
+}
+```
+
+[hover: hover](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/hover)를 설정하면 마우스 오버가 가능한 경우에만 스타일을 적용합니다.
+그러나 일부 Android 버전에는 길게 누를 때 호버링을 애뮬레이트하는 기능이 있어 hover를 지원하는 것으로 판단됩니다.
+따라서 [pointer: fine](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/pointer)을 설정하여 마우스처럼 정확한 포인터 장치를 지원하는 경우에만 스타일을 적용하도록 합니다.
+
+<br />
+
+미디어 쿼리로 구분하는 방법은 간편하지만, **구형 브라우저에서는 제대로 동작하지 않을 위험**이 있습니다.
+따라서 저의 경우에는 자바스크립트를 통해 모바일 기기인지 확인하고(`window.navigator.userAgent` 확인), 그에 따라 hover 스타일 활성화하는 방법을 채택했습니다.
+
+<br />
+
+<p className="text-center">
+  <strong>.</strong>
+</p>
+
+<p className="text-center">
+  <strong>.</strong>
+</p>
+
+<p className="text-center">
+  <strong>.</strong>
+</p>
+
+<br />
+
+여러분들은 마우스 이벤트를 제대로 사용하고 계신가요?
+저는 여태껏 모바일 환경을 지원하는 반응형 UI를 구현하면서도 터치 동작에 대해서는 전혀 고려를 하지 않았습니다.
+이제부터라도 모바일 기기 사용자들을 위해서 터치 이벤트를 고려하며 개발하면 좋을거 같네요 😁

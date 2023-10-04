@@ -2,8 +2,8 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { ClockIcon } from './Icons';
 import { Post } from 'contentlayer/generated';
+import { ClockIcon } from './Icons';
 
 export function PostList({ posts }: { posts: Post[] }) {
   return (
@@ -17,7 +17,7 @@ export function PostList({ posts }: { posts: Post[] }) {
   );
 }
 
-export function PostItem({ url, image, title, introduce, createdAt }: Post) {
+export function PostItem({ url, image, title, introduce, createdAt, category }: Post) {
   return (
     <li className="shadow-default transition-all duration-300 rounded-lg dark:bg-[#2d333b] hover:shadow-hover hover:scale-105">
       <Link href={url} aria-label="" tabIndex={0}>
@@ -33,9 +33,10 @@ export function PostItem({ url, image, title, introduce, createdAt }: Post) {
           <div className="rounded-t-lg w-full h-40 mobile:h-48 bg-primary" />
         )}
         <div className="w-full h-52 p-4 flex flex-col justify-between">
+          <span className="text-sm text-date">{category}</span>
           <div>
             <h3 className="text-lg mb-3 font-bold leading-snug transition-colors">{title}</h3>
-            <p className="text-sm leading-normal">{introduce}</p>
+            <p className="text-sm leading-relaxed">{introduce}</p>
           </div>
           <span className="text-sm text-date">
             <ClockIcon className="w-5 inline-block align-middle mr-1" />

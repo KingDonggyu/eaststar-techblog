@@ -11,6 +11,7 @@ export const Post = defineDocumentType(() => ({
     image: { type: 'string', required: false },
     createdAt: { type: 'string', required: true },
     tags: { type: 'list', of: { type: 'string' }, required: true },
+    category: { type: 'string', required: true },
   },
   computedFields: {
     url: {
@@ -21,7 +22,7 @@ export const Post = defineDocumentType(() => ({
 }));
 
 export default makeSource({
-  contentDirPath: 'contents',
+  contentDirPath: 'public',
   documentTypes: [Post],
   mdx: { rehypePlugins: [[rehypePrettyCode, { theme: 'material-theme-ocean' }]] },
 });

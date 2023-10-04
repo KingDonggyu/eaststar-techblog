@@ -7,7 +7,7 @@ export default function Tag({ params }: { params: { tag: string } }) {
   const posts = isAll
     ? allPosts
     : allPosts.filter(({ tags }) => {
-        const matchingTags = tags.filter(tag => tag.toLowerCase() === params.tag);
+        const matchingTags = tags.filter(tag => tag.toLowerCase().replace(/\./g, '') === params.tag);
         return Boolean(matchingTags.length);
       });
 

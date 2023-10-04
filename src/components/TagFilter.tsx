@@ -8,7 +8,7 @@ export function TagFilter({ tagList, className }: { tagList: Array<[string, numb
   return (
     <div className={`${className} flex flex-wrap gap-3`}>
       {tagList.map(([tag, count]) => (
-        <TagItem key={tag} tag={tag} count={count} isActive={selectedTag === tag.toLowerCase()} />
+        <TagItem key={tag} tag={tag} count={count} isActive={selectedTag === tag.toLowerCase().replace(/\./g, '')} />
       ))}
     </div>
   );
@@ -17,12 +17,12 @@ export function TagFilter({ tagList, className }: { tagList: Array<[string, numb
 export function TagItem({ tag, count, isActive }: { tag: string; count?: number; isActive?: boolean }) {
   return (
     <Link
-      href={`/tags/${tag.toLowerCase()}`}
-      className={`!no-underline border mr-3 px-3 py-2 rounded-full text-sm ${
+      href={`/tags/${tag.toLowerCase().replace(/\./g, '')}`}
+      className={`!no-underline border px-3 py-1 rounded-full text-sm hover:text-primary ${
         isActive && 'border-primary border font-bold'
       }`}
     >
-      #{tag.toUpperCase()} {count}
+      {tag.toUpperCase()} {count}
     </Link>
   );
 }
