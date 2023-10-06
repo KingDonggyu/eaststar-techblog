@@ -30,7 +30,7 @@ Canvas API는 JavaScript 및 HTML `<canvas>` 요소를 통해 그래픽을 그�
 ```ts
 // useCanvas.ts
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect } from 'react';
 
 const useCanvas = (setCanvas: (canvas: HTMLCanvasElement) => void) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -63,7 +63,7 @@ const WIDTH = 1000;
 const HEIGHT = 700;
 
 const Canvas = () => {
-  const canvasRef = useCanvas((canvas) => {
+  const canvasRef = useCanvas(canvas => {
     canvas.width = WIDTH;
     canvas.height = HEIGHT;
     canvas.style.background = `url(${mapBackground})`;
@@ -96,7 +96,7 @@ canvas가 잘 생성되었네요 👍
 - 캐릭터의 이동 방향
 
 현재로서는 이 두가지 정도가 필요하겠네요.
-그럼 위치와 방향 State를 생성하면 될까요? 
+그럼 위치와 방향 State를 생성하면 될까요?
 No! **State의 변경이 일어나면 컴포넌트의 리렌더링이 발생합니다.**
 따라서 캐릭터가 이동할 때마다 리렌더링이 수행되겠죠.
 
@@ -149,7 +149,7 @@ const Canvas = () => {
     canvas.style.background = `url(${mapBackground})`;
     charcterRef.current = new Character(canvas);
   });
- 
+
   return (
     <Wrapper>
       <canvas ref={canvasRef} />
@@ -163,7 +163,7 @@ const Canvas = () => {
 <br />
 <br />
 
-### * 캐릭터 이미지 가져오기
+### \* 캐릭터 이미지 가져오기
 
 이제 방향별 캐릭터 이미지를 가져오는 기능을 구현해봅시다.
 저는 [https://itch.io/game-assets/free/tag-top-down](https://itch.io/game-assets/free/tag-top-down) 에서 아래 무료 캐릭터 이미지를 다운 받았습니다.
@@ -208,15 +208,12 @@ const imageSrc = {
   manRightWalk,
 };
 
-const CharacterImages = Object.entries(imageSrc).reduce(
-  (images, [key, src]) => {
-    const image = new Image();
-    image.src = src;
-    images[key] = image;
-    return images;
-  },
-  init
-);
+const CharacterImages = Object.entries(imageSrc).reduce((images, [key, src]) => {
+  const image = new Image();
+  image.src = src;
+  images[key] = image;
+  return images;
+}, init);
 
 export default CharacterImages;
 ```
@@ -242,7 +239,7 @@ enum Direction {
 class Character {
 
   ...
-  
+
   private getImageByDirection(direction: number, isWalking: boolean) {
     const {
       manDown,
@@ -275,7 +272,7 @@ class Character {
 
 <br />
 
-### * `requestAnimationFrame`
+### \* `requestAnimationFrame`
 
 캐릭터를 그리기 위해서 `window.requestAnimationFrame` 함수를 사용합니다.
 
@@ -351,16 +348,7 @@ class Character {
   }
 
   private getImageByDirection(direction: number, isWalking: boolean) {
-    const {
-      manDown,
-      manDownWalk,
-      manUp,
-      manUpWalk,
-      manLeft,
-      manLeftWalk,
-      manRight,
-      manRightWalk,
-    } = CharacterImages;
+    const { manDown, manDownWalk, manUp, manUpWalk, manLeft, manLeftWalk, manRight, manRightWalk } = CharacterImages;
 
     switch (direction) {
       case Direction.UP:
@@ -618,16 +606,7 @@ class Character {
   }
 
   private getImageByDirection(direction: number, isWalking: boolean) {
-    const {
-      manDown,
-      manDownWalk,
-      manUp,
-      manUpWalk,
-      manLeft,
-      manLeftWalk,
-      manRight,
-      manRightWalk,
-    } = CharacterImages;
+    const { manDown, manDownWalk, manUp, manUpWalk, manLeft, manLeftWalk, manRight, manRightWalk } = CharacterImages;
 
     switch (direction) {
       case Direction.UP:
@@ -742,7 +721,7 @@ export default async function getFrameRate() {
 
   const framePrefixSum = new Map();
 
-  FRAME_RATES.forEach((fps) => framePrefixSum.set(fps, 0));
+  FRAME_RATES.forEach(fps => framePrefixSum.set(fps, 0));
 
   while (++count < 60) {
     const timeStamp = 1000 / (performance.now() - lastTime);
@@ -761,7 +740,7 @@ export default async function getFrameRate() {
     framePrefixSum.set(frameRate, framePrefixSum.get(frameRate) + 1);
     lastTime = performance.now();
 
-    await new Promise((resolve) => {
+    await new Promise(resolve => {
       requestAnimationFrame(resolve);
     });
   }
@@ -784,7 +763,7 @@ export default async function getFrameRate() {
 
 `getFrameRate` 유틸 함수를 적용한 `Canvas` 컴포넌트와 `Character` 클래스입니다.
 
-### * `Canvas` 컴포넌트
+### \* `Canvas` 컴포넌트
 
 ```tsx
 // Canvas.tsx
@@ -801,14 +780,14 @@ const HEIGHT = 700;
 
 const Canvas = () => {
   const charcterRef = useRef<Character | null>(null);
-  const canvasRef = useCanvas(async (canvas) => {
+  const canvasRef = useCanvas(async canvas => {
     canvas.width = WIDTH;
     canvas.height = HEIGHT;
     canvas.style.background = `url(${mapBackground})`;
 
     const frameRate = await getFrameRate();
     charcterRef.current = new Character(canvas);
- 
+
     if (charcterRef.current) {
       document.addEventListener('keydown', charcterRef.current.hadleArrowKeyDown());
     }
@@ -835,7 +814,7 @@ export default Canvas;
 <br />
 <br />
 
-### * `Character` 클래스
+### \* `Character` 클래스
 
 ```ts
 // Character.ts
@@ -890,16 +869,7 @@ class Character {
   }
 
   private getImageByDirection(direction: number, isWalking: boolean) {
-    const {
-      manDown,
-      manDownWalk,
-      manUp,
-      manUpWalk,
-      manLeft,
-      manLeftWalk,
-      manRight,
-      manRightWalk,
-    } = CharacterImages;
+    const { manDown, manDownWalk, manUp, manUpWalk, manLeft, manLeftWalk, manRight, manRightWalk } = CharacterImages;
 
     switch (direction) {
       case Direction.UP:
@@ -998,8 +968,6 @@ export default Character;
 캐릭터 이동을 구현하면서 정말 많은 문제를 만났습니다.
 문제를 해결하는 과정들에서 많은 부분을 학습할 수 있었던 것 같아서 좋네요.
 특히 사용자 별로 다른 모니터 주사율을 효과적으로 다룬 것이 제일 뿌듯합니다.
-
- 
 
 공유할 내용이 많다보니 디테일하게 다루지 못한 것 같네요 😅
 개선할 여지가 있는 부분이 있다면 댓글 부탁드립니다!

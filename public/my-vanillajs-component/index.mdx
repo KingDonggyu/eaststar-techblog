@@ -19,7 +19,7 @@ image: /my-vanillajs-component/1.png
 그래서 컴포넌트가 정확히 무엇일까요?
 실제 리액트 공식 문서의 [Components and Props](https://legacy.reactjs.org/docs/components-and-props.html) 부문을 보면 아래 문장이 명시되어 있습니다.
 
->  Conceptually, components are like **JavaScript functions.** They accept arbitrary inputs (called “props”) and return React elements describing what should appear on the screen.
+> Conceptually, components are like **JavaScript functions.** They accept arbitrary inputs (called “props”) and return React elements describing what should appear on the screen.
 
 즉, **컴포넌트란 데이터를 입력받아 DOM Element를 출력하는 자바스크립트 함수**라 할 수 있을 것 같습니다.=
 따라서 **입력받는 데이터의 변경에 따라 출력 결과를 다르게 함**으로써, 컴포넌트를 리렌더링하여 SPA를 개발할 수 있습니다.
@@ -46,7 +46,7 @@ image: /my-vanillajs-component/1.png
 - 입력 데이터의 변경에 따라 출력 결과를 다르게 할 수 있어야 합니다.
 
 먼저 DOM Element를 출력한다는 것이 무엇을 의미할까요?
-바로, DOM Element가 화면에 보여지는 것입니다. 
+바로, DOM Element가 화면에 보여지는 것입니다.
 즉 **렌더링**되는 것이죠!
 
 입력 데이터의 변경에 따라 출력 결과를 다르게 한다고 했죠?
@@ -98,12 +98,12 @@ class NavBar extends Component {
     this.element.className = 'nav-wrapper';
     this.render();
   }
-  
+
   render() {
     const navItem = document.createElement('div');
     navItem.className = 'nav-item left';
     new BackButton({ parent: this.element });
-  
+
     this.element.innerHTML = `
       <div class='nav-item middle'>${this.state.title}</div>
       <div class='nav-item right'>
@@ -122,9 +122,9 @@ export default NavBar;
 하지만 여러 의문점이 들었습니다.
 
 1. `render` 메서드 내에 어떤 코드가 들어갈지 어떻게 알아?
-이 메서드는 View를 그리는 역할만 했으면 좋겠는데..
+   이 메서드는 View를 그리는 역할만 했으면 좋겠는데..
 2. DOM에 생성한 Element를 `appendChild`로 붙인 상태에서 여러 작업을 하고 있는데, 자식 컴포넌트 깊이가 커지면 렌더링 성능이 저하되지는 않을까?
-DOM에 달려있는 Element의 조작은 리플로우를 빈번하게 발생시키는데..
+   DOM에 달려있는 Element의 조작은 리플로우를 빈번하게 발생시키는데..
 
 <br />
 
@@ -133,7 +133,7 @@ DOM에 달려있는 Element의 조작은 리플로우를 빈번하게 발생시�
 ### **1. `render` 메서드가 View를 그리는 관심사만을 가지도록 제한하자.**
 
 ```js
-class Component {  
+class Component {
   constructor(parent) {
     this.parent = parent;
   }
@@ -141,7 +141,7 @@ class Component {
   render(html) {
     const fragment = document.createElement('div');
     fragment.innerHTML = html;
-    
+
     this.element = fragment.firstElementChild;
     this.parent.appendChild(this.element);
   }
@@ -164,7 +164,7 @@ export default Component;
 새로 개선한 `render` 메서드 또한 리렌더링이 가능하도록 변경해봅시다.
 
 ```js
-class Component {  
+class Component {
   constructor(parent) {
     this.parent = parent;
     this.parent.appendChild(this.element);
@@ -172,17 +172,17 @@ class Component {
 
   render(html, isRerender = false) {
     this.html = html;
-    
+
     const fragment = document.createElement('div');
     fragment.innerHTML = html;
-    
+
     const element = fragment.firstElementChild;
     isRerender && this.parent.replaceChild(element, this.element);
-    
+
     this.element = element;
     !isRerender && this.parent.appendChild(this.element);
   }
-  
+
   rerender() {
     this.html && this.render(this.html);
   }
@@ -220,28 +220,28 @@ render(`<div>${this.state.name}</div>`);
 `appendChild` 이전, 즉 DOM에 해당 컴포넌트가 부착되기 전에 Element를 조작할 수 있도록 해봅시다.
 
 ```js
-class Component {  
-  
+class Component {
+
   ...
 
   render(html, isRerender = false) {
     this.html = html;
-    
+
     const fragment = document.createElement('div');
     fragment.innerHTML = html;
-    
+
     const element = fragment.firstElementChild;
     isRerender && this.parent.replaceChild(element, this.element);
-    
+
     this.element = element;
-    
+
     // 이 부분에 Element 조작을 할 수는 없을까?
-    
+
     !isRerender && this.parent.appendChild(this.element);
   }
-  
+
   ...
-  
+
 }
 ```
 
@@ -249,31 +249,31 @@ class Component {
 여러 고민 끝에, 콜백 함수를 이용하기로 했습니다.
 
 ```js
-class Component {  
-  
+class Component {
+
   ...
 
   render(html, handleElement = () => {}, isRerender = false) {
     this.html = html;
     this.handleElement = handleElement;
-    
+
     const fragment = document.createElement('div');
     fragment.innerHTML = html;
-    
+
     const element = fragment.firstElementChild;
     isRerender && this.parent.replaceChild(element, this.element);
-    
+
     this.element = element;
     this.handleElement && this.handleElement(this.element);
     !isRerender && this.parent.appendChild(this.element);
   }
-  
+
   rerender() {
     this.html && this.render(this.html, this.handleElement, true);
   }
-  
+
   ...
-  
+
 }
 ```
 
@@ -287,11 +287,11 @@ class NavBar extends Component {
   constructor({ parent }) {
     super(parent);
     this.state = { title: '로그인' };
-    this.render(`<div class='nav-wrapper'></div>`, (element) => {
+    this.render(`<div class='nav-wrapper'></div>`, element => {
       this.createNavItems(element);
     });
   }
-  
+
   createNavItems(parent) {
     this.createBackButton(parent);
     const fragment = document.createElement('template');
@@ -303,7 +303,7 @@ class NavBar extends Component {
     `;
     parent.appendChild(fragment.content);
   }
-  
+
   createBackButton(parent) {
     const navItem = document.createElement('div');
     navItem.class = 'nav-item left';
@@ -333,16 +333,16 @@ export default NavBar;
 class Component {
 
   ...
-  
+
   bindEvents(eventListeners) {
     eventListeners.forEach(({ element, type, listener }) => {
       element = element || this.element;
       element.addEventListener(type, listener);
     });
   }
-  
+
   ...
-  
+
 }
 ```
 
@@ -358,11 +358,11 @@ import Component from 'core/Component';
 class SignIn extends Component {
   constructor({ parent }) {
     super(parent);
-    
+
     this.render(
       ...
     );
-    
+
     this.bindEvents([
       {
         type: 'input',
@@ -380,9 +380,9 @@ class SignIn extends Component {
       }
     ]);
   }
-  
+
   ...
-  
+
 }
 
 export default SignIn
@@ -397,7 +397,7 @@ export default SignIn
 아래는 JavaScript로 작성한 `Component` 클래스 최종 코드입니다.
 
 ```js
-class Component {  
+class Component {
   constructor(parent) {
     this.parent = parent;
   }
@@ -405,27 +405,27 @@ class Component {
   render(html, handleElement = () => {}, isRerender = false) {
     this.html = html;
     this.handleElement = handleElement;
-    
+
     const fragment = document.createElement('div');
     fragment.innerHTML = html;
-    
+
     const element = fragment.firstElementChild;
     isRerender && this.parent.replaceChild(element, this.element);
-    
+
     this.element = element;
     this.handleElement && this.handleElement(this.element);
     !isRerender && this.parent.appendChild(this.element);
   }
-  
+
   rerender() {
     this.html && this.render(this.html, this.handleElement, true);
   }
-  
+
   setState(nextState) {
     this.state = { ...this.state, ...nextState };
     this.rerender();
   }
-  
+
   bindEvents(eventListeners) {
     eventListeners.forEach(({ element, type, listener }) => {
       element = element || this.element;
@@ -462,11 +462,7 @@ class Component {
     this.parent = parent;
   }
 
-  protected render(
-    html: string,
-    handleElement?: (element: HTMLElement) => void,
-    isRerender = false
-  ) {    
+  protected render(html: string, handleElement?: (element: HTMLElement) => void, isRerender = false) {
     this.html = html;
     this.handleElement = handleElement;
 
@@ -475,7 +471,7 @@ class Component {
 
     const element = fragment.firstElementChild as HTMLElement;
     isRerender && this.parent.replaceChild(element, this.element);
-    
+
     this.element = element;
     this.handleElement && this.handleElement(this.element);
     !isRerender && this.parent?.appendChild(this.element);

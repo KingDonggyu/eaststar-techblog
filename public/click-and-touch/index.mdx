@@ -107,7 +107,7 @@ image: '/click-and-touch/5.jpeg'
 
 <br />
 
-### * 원인 발견
+### \* 원인 발견
 
 `mouseover` 이벤트가 범인이었습니다.
 
@@ -147,20 +147,13 @@ const isMobile = ('ontouchstart' in window)||
 
 ```js
 const checkIsMobile = () => {
-  const mobileRegex = [
-      /Android/i,
-      /iPhone/i,
-      /iPad/i,
-      /iPod/i,
-      /BlackBerry/i,
-      /Windows Phone/i,
-  ];
+  const mobileRegex = [/Android/i, /iPhone/i, /iPad/i, /iPod/i, /BlackBerry/i, /Windows Phone/i];
 
   const agent = window.navigator.userAgent;
-  const isMobile = mobileRegex.some((regex) => agent.match(regex));
+  const isMobile = mobileRegex.some(regex => agent.match(regex));
 
   return isMobile;
-}
+};
 ```
 
 <br />
@@ -179,17 +172,10 @@ const useMobile = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const mobileRegex = [
-      /Android/i,
-      /iPhone/i,
-      /iPad/i,
-      /iPod/i,
-      /BlackBerry/i,
-      /Windows Phone/i,
-    ];
+    const mobileRegex = [/Android/i, /iPhone/i, /iPad/i, /iPod/i, /BlackBerry/i, /Windows Phone/i];
 
     const agent = window.navigator.userAgent;
-    setIsMobile(mobileRegex.some((regex) => agent.match(regex)));
+    setIsMobile(mobileRegex.some(regex => agent.match(regex)));
   }, []);
 
   return isMobile;
@@ -214,8 +200,7 @@ export default useMobile;
 그리고 **미디어 쿼리를 이용하는 방법**이 있습니다.
 
 ```css
-@media(hover: hover) and (pointer: fine) {
-
+@media (hover: hover) and (pointer: fine) {
 }
 ```
 

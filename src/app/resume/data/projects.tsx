@@ -97,9 +97,6 @@ const projects: Project[] = [
             web: 'https://east-star.tistory.com/36',
           },
           {
-            content: 'Chart.js를 이용한 데이터 시각화',
-          },
-          {
             content: 'Storybook을 통한 컴포넌트 검증 프로세스 간소화',
           },
           {

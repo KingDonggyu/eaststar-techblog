@@ -49,8 +49,8 @@ image: /Improving-frontend-performance/1.png
 이와 달리 `@react-icons/all-files` 라이브러리는 아이콘 별로 JavaScript 파일이 존재합니다 .
 따라서 **빌드 시에 Tree Shaking으로 인해 더 적은 크기의 번들이 만들어집니다.**
 
-> 💡 **Tree Shaking?** <br /> 
-사용하지 않는 코드를 제거하는 방식을 말합니다.
+> 💡 **Tree Shaking?** <br />
+> 사용하지 않는 코드를 제거하는 방식을 말합니다.
 
 <br />
 
@@ -75,8 +75,8 @@ image: /Improving-frontend-performance/1.png
 
 각 페이지들을 **React의 `lazy`와 `Suspense`를 사용하여 Code Splitting을 적용했습니다.**
 
-> 💡 **Code Splitting?** <br /> 
-코드를 분리하고 필요할 때만 불러오는 방식을 말합니다.
+> 💡 **Code Splitting?** <br />
+> 코드를 분리하고 필요할 때만 불러오는 방식을 말합니다.
 
 `lazy`를 통해 동적 `import`로 사용할 컴포넌트를 가져오고, `Suspense`를 통해 해당 컴포넌트를 가져오는 동안 로딩 화면을 렌더링해주는 것입니다.
 따라서 이전에 정적이게 받아오던 코드들이 분할되어 번들이 나누어지게 되고, **동적으로 각 번들을 불러오도록 합니다.**
@@ -202,8 +202,8 @@ export type RoutePath = typeof RoutePath[keyof typeof RoutePath];
 이 기세를 이어 이미지 최적화 또한 수행했습니다.
 JPG, JPEG, PNG 이미지 파일들을 WebP 파일로 변환하여 크기를 줄였습니다.
 
-> 💡 **Webp?** <br /> 
-구글이 웹페이지 로딩 속도를 높이기 위해 개발한 이미지 포맷입니다. JPG, PNG 등 이미지보다 크기는 작지만 이미지 품질은 동일하게 유지됩니다.
+> 💡 **Webp?** <br />
+> 구글이 웹페이지 로딩 속도를 높이기 위해 개발한 이미지 포맷입니다. JPG, PNG 등 이미지보다 크기는 작지만 이미지 품질은 동일하게 유지됩니다.
 
 저는 [PIXLR](https://pixlr.com/kr/) 사이트에서 모두 수동으로 변환했습니다.
 
