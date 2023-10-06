@@ -14,7 +14,7 @@ export function ResumeIntroduce() {
         <Link href="https://www.sejulbook.com" target="_blank">
           &apos;세 줄 독후감&apos;
         </Link>{' '}
-        웹 사이트를 운영하며 코드 리팩토링, 성능 최적화 등 사용자에게 더 나은 경험을 제공하기 위한 지속적인 유지보수에
+        웹 사이트를 운영하며 자원 최적화, 성능 최적화 등 사용자에게 더 나은 경험을 제공하기 위한 지속적인 유지보수에
         집중하고 있습니다.
       </p>
       <br />

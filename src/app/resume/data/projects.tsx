@@ -14,7 +14,7 @@ const projects: Project[] = [
     endDate: '현재',
     introduce: (
       <>
-        <strong>&quot;독후감을 작성하고 공유할 수 있는 웹 서비스&quot;</strong> (회원 39명 확보)
+        <strong>&quot;독후감을 작성하고 공유할 수 있는 웹 서비스&quot;</strong> (회원 40명 확보)
         <br />
         1인 풀스택 개발 프로젝트이며 지속적인 유지보수 및 운영을 하고 있습니다.
       </>
@@ -88,7 +88,7 @@ const projects: Project[] = [
         4인 개발 프로젝트이며 프론트엔드 개발자로 참여했습니다.
       </>
     ),
-    skills: ['React', 'TypeScript', 'React-Query', 'Zustand', 'styled-components', 'Webpack'],
+    skills: ['React', 'TypeScript', 'React-Query', 'Zustand', 'styled-components', 'Webpack', 'Storybook'],
     tasks: [
       {
         details: [

@@ -53,7 +53,7 @@
   }
 
   .post blockquote p {
-    @apply my-0
+    @apply my-0;
   }
 
   .post ul {
@@ -72,7 +72,8 @@
     @apply my-5 text-line;
   }
 
-  .post p code, .post li code {
+  .post p code,
+  .post li code {
     @apply bg-emerald-50 dark:bg-slate-800 text-primary200 dark:text-primary text-sm rounded-md p-1;
   }
 
