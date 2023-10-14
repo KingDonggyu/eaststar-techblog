@@ -19,7 +19,7 @@ export function TagItem({ tag, count, isActive }: { tag: string; count?: number;
     <Link
       href={`/tags/${tag.toLowerCase().replace(/\./g, '')}`}
       className={`!no-underline border px-3 py-1 rounded-full text-sm hover:text-primary ${
-        isActive && 'border-primary border font-bold'
+        isActive && 'border-primary border font-bold text-primary'
       }`}
     >
       {tag.toUpperCase()} {count}

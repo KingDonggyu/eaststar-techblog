@@ -6,6 +6,10 @@ const nextConfig = {
     appDir: true,
   },
   swcMinify: false,
+  output: 'export',
+  images: {
+    unoptimized: true,
+  },
 };
 
 module.exports = withContentlayer(nextConfig);

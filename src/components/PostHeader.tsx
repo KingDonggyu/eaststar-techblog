@@ -10,7 +10,7 @@ export function PostHeader({ title, introduce, createdAt, tags, category }: Post
         ))}
       </div>
       <h1 className="!my-5">{title}</h1>
-      <p>{introduce}</p>
+      <p>： {introduce}</p>
       <div className="text-date">
         <span>{category}</span>
         <span className="mx-1">•</span>

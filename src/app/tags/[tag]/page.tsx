@@ -1,5 +1,6 @@
 import Home from 'app/page';
 import { allPosts } from 'contentlayer/generated';
+import { getAllTagList } from 'utils/getAllTagList';
 
 export default function Tag({ params }: { params: { tag: string } }) {
   const isAll = params.tag === 'all';
@@ -11,9 +12,9 @@ export default function Tag({ params }: { params: { tag: string } }) {
         return Boolean(matchingTags.length);
       });
 
-  return (
-    <>
-      <Home posts={posts} />
-    </>
-  );
+  return <Home posts={posts} />;
+}
+
+export async function generateStaticParams() {
+  return getAllTagList().map(([tag]) => ({ tag: tag.replace(/\./g, '') }));
 }

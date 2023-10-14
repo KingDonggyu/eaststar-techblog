@@ -24,7 +24,7 @@ export function PortfolioLinks({ large = false, hasPortfolioLink = false }: Port
       </LinkItemWrapper>
       {hasPortfolioLink && (
         <LinkItemWrapper name="Portfolio" large={large}>
-          <Link href="https://eaststar.vercel.app/portfolio" aria-label="포트폴리오로 이동">
+          <Link href="https://eaststar.vercel.app/portfolio" target="_blank" aria-label="포트폴리오로 이동">
             <DesktopIcon className={iconStyle} />
           </Link>
         </LinkItemWrapper>

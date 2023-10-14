@@ -34,4 +34,8 @@
   main {
     @apply max-w-default;
   }
+
+  img {
+    @apply animate-fadeIn;
+  }
 }
