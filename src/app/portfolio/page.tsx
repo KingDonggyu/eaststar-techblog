@@ -1,6 +1,7 @@
 import 'styles/portfolio.css';
 import { Metadata } from 'next';
-import Client from './client';
+import { PortfolioProject } from 'components/PortfolioProject';
+import { ThemeToggle } from 'components/ThemeToggle';
 
 export const metadata: Metadata = {
   title: 'Portfolio - 개발자 동쪽별',
@@ -8,5 +9,10 @@ export const metadata: Metadata = {
 };
 
 export default function Portfolio() {
-  return <Client />;
+  return (
+    <div id="portfolio" className="px-28 py-[90px] max-w-[1440px] m-auto sm:px-[30px]">
+      <ThemeToggle className="fixed top-7 right-8" />
+      <PortfolioProject />
+    </div>
+  );
 }

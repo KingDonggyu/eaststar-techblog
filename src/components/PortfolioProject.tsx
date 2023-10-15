@@ -11,7 +11,8 @@ import { DesktopIcon, GitHubIcon } from './Icons';
 export function PortfolioProject() {
   return (
     <section className="font-bold pb-20">
-      <h3 className="text-6xl mb-20">PROJECTS.</h3>
+      {/* <h3 className="text-6xl mb-20">PROJECTS.</h3> */}
+      <h3 className="text-6xl mb-20">PORTFOLIO.</h3>
       <div className="grid grid-cols-2 gap-10 xl:grid-cols-1">
         {projects.map(({ thumbnail, title, introduce, contribute, skills, github, web }) => (
           <div key={title} className="project-wrapper relative object-contain shadow-hover rounded-xl overflow-hidden">
