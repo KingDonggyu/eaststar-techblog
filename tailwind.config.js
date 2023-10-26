@@ -14,6 +14,9 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['var(--font-gothic)'],
+      },
       maxWidth: { default: '700px' },
       backgroundColor: {
         'theme-light': colors.white,
