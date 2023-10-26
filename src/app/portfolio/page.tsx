@@ -1,7 +1,7 @@
 import 'styles/portfolio.css';
 import { Metadata } from 'next';
-import { PortfolioProject } from 'components/PortfolioProject';
-import { ThemeToggle } from 'components/ThemeToggle';
+import { PortfolioProject } from 'components/portfolio/projects';
+import { ThemeToggle } from 'components/theme-toggle';
 
 export const metadata: Metadata = {
   title: 'Portfolio - 개발자 동쪽별',

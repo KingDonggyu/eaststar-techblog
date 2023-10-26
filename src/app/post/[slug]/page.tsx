@@ -1,7 +1,7 @@
 import 'styles/posts.css';
 import { allPosts } from 'contentlayer/generated';
 import { getMDXComponent } from 'next-contentlayer/hooks';
-import { PostHeader } from 'components/PostHeader';
+import { PostHeader } from 'components/post/header';
 
 export default function Post({ params }: { params: { slug: string } }) {
   const post = getPost(params.slug);

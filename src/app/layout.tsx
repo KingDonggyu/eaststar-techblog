@@ -1,13 +1,13 @@
 import 'styles/globals.css';
 import type { Metadata } from 'next';
 import { Nanum_Gothic } from 'next/font/google';
-import { Providers } from 'components/Providers';
-import { PageLayout } from 'components/PageLayout';
-import { GA } from 'components/GA';
+import { Root } from 'components/layout/root';
 
-const NanumGothic = Nanum_Gothic({
+const nanumGothic = Nanum_Gothic({
   subsets: ['latin'],
+  display: 'swap',
   weight: ['400', '700'],
+  variable: '--font-gothic',
 });
 
 export const metadata: Metadata = {
@@ -18,12 +18,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ko">
-      <body className={NanumGothic.className}>
-        <Providers>
-          {!process.env.NEXT_PUBLIC_IS_LOCAL && <GA />}
-          <PageLayout>{children}</PageLayout>
-        </Providers>
+    <html lang="ko" className={nanumGothic.variable}>
+      <body>
+        <Root>{children}</Root>
       </body>
     </html>
   );

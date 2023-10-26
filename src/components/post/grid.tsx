@@ -3,9 +3,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Post } from 'contentlayer/generated';
-import { ClockIcon } from './Icons';
+import { ClockIcon } from '../icons';
 
-export function PostList({ posts }: { posts: Post[] }) {
+export function PostGrid({ posts }: { posts: Post[] }) {
   return (
     <section>
       <ul className="grid grid-cols-2 gap-12 mobile:grid-cols-1">
@@ -48,4 +48,4 @@ export function PostItem({ url, image, title, introduce, createdAt, category }: 
   );
 }
 
-export default PostList;
+export default PostGrid;

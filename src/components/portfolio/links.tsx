@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import Link from 'next/link';
-import { GitHubIcon, MailIcon, DesktopIcon, WriteIcon } from './Icons';
+import { GitHubIcon, MailIcon, DesktopIcon, WriteIcon } from 'components/icons';
 
 interface PortfolioLinksProps {
   large?: boolean;

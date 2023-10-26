@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
-import { GitHubIcon, VideoIcon, WebIcon } from './Icons';
+import { GitHubIcon, VideoIcon, WebIcon } from '../icons';
 
 export interface ResumeProjectProps {
   title: string;

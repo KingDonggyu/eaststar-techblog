@@ -1,9 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import { ThemeToggle } from './ThemeToggle';
+import { ThemeToggle } from '../../theme-toggle';
 
-export function TopNavbar() {
+export function Navbar() {
   return (
     <div className="fixed top-0 left-0 right-0 bg-theme-light dark:bg-theme-dark border-b border-line z-10">
       <nav className="max-w-default m-auto p-4 flex justify-between items-center">

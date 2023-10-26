@@ -1,4 +1,4 @@
-import { ResumeExperienceProps } from 'components/ResumeExperience';
+import { ResumeExperienceProps } from 'components/resume/experience';
 
 type Experience = ResumeExperienceProps;
 

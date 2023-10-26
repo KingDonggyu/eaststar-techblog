@@ -1,6 +1,6 @@
 import sejulbook from 'assets/logo-sejulbook.png';
 import fitory from 'assets/logo-fitory.png';
-import { ResumeProjectProps } from 'components/ResumeProject';
+import { ResumeProjectProps } from 'components/resume/project';
 
 type Project = ResumeProjectProps;
 

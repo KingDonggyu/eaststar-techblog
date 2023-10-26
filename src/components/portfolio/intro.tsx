@@ -6,8 +6,8 @@ import hero from 'assets/hero.webp';
 import useImageScrollScale from 'hooks/useImageScrollScale';
 import useScrollDownFadeOut from 'hooks/useScrollDownFadeOut';
 import useScrollDownFadeIn from 'hooks/useScrollDownFadeIn';
-import { PortfolioLinks } from './PortfolioLinks';
-import { ArrowDownIcon } from './Icons';
+import { PortfolioLinks } from './links';
+import { ArrowDownIcon } from '../icons';
 
 export function PortfolioIntro() {
   const backgroundRef = useRef<HTMLDivElement>(null);

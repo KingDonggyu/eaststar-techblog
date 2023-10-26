@@ -1,12 +1,15 @@
+'use client';
+
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import clsx from 'clsx';
 
 export function TagFilter({ tagList, className }: { tagList: Array<[string, number]>; className?: string }) {
   const pathName = usePathname();
   const selectedTag = pathName.split('/').pop() || 'all';
 
   return (
-    <div className={`${className} flex flex-wrap gap-3`}>
+    <div className={clsx('flex flex-wrap gap-3', className)}>
       {tagList.map(([tag, count]) => (
         <TagItem key={tag} tag={tag} count={count} isActive={selectedTag === tag.toLowerCase().replace(/\./g, '')} />
       ))}

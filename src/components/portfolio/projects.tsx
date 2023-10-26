@@ -6,7 +6,7 @@ import algongThumbnail from 'assets/thumbnail-algong.png';
 import carbontrackerThumbnail from 'assets/thumbnail-carbontracker.png';
 import sttEvaluationThumbnail from 'assets/thumbnail-stt.png';
 import smartDigitalSignageThumbnail from 'assets/thumbnail-signage.png';
-import { DesktopIcon, GitHubIcon } from './Icons';
+import { DesktopIcon, GitHubIcon } from '../icons';
 
 export function PortfolioProject() {
   return (
@@ -14,35 +14,41 @@ export function PortfolioProject() {
       {/* <h3 className="text-6xl mb-20">PROJECTS.</h3> */}
       <h3 className="text-6xl mb-20">PORTFOLIO.</h3>
       <div className="grid grid-cols-2 gap-10 xl:grid-cols-1">
-        {projects.map(({ thumbnail, title, introduce, contribute, skills, github, web }) => (
-          <div key={title} className="project-wrapper relative object-contain shadow-hover rounded-xl overflow-hidden">
-            <Image
-              src={thumbnail}
-              alt={`${title} 프로젝트 섬네일 이미지`}
-              className="rounded-xl w-full h-full brightness-75 object-cover transition-all"
-            />
-            <div className="absolute top-0 bottom-0 left-0 right-0 p-7 text-theme-dark">
-              <span className="project-title text-4xl transition-all">{title}</span>
-              <div className="project-detail relative h-full flex flex-col gap-5 mt-7 text-lg opacity-0 transition-opacity duration-500 sm:mt-5">
-                <span>&quot;{introduce}&quot;</span>
-                <span className="sm:hidden">{contribute}</span>
-                <span className="text-base sm:hidden">{skills}</span>
-                <nav className="absolute bottom-16 right-0 flex justify-end gap-7 sm:bottom-12">
-                  <Link href={github} target="_blank" className="flex items-center gap-2">
-                    <GitHubIcon className="w-7 sm:w-5" /> GitHub (README)
-                  </Link>
-                  {web && (
-                    <Link href={web} target="_blank" className="flex items-center gap-1.5">
-                      <DesktopIcon className="w-7 sm:w-5" /> Demo
-                    </Link>
-                  )}
-                </nav>
-              </div>
-            </div>
-          </div>
+        {projects.map(project => (
+          <ProjectItem key={project.title} {...project} />
         ))}
       </div>
     </section>
+  );
+}
+
+export function ProjectItem({ title, thumbnail, introduce, contribute, skills, github, web }: Project) {
+  return (
+    <div key={title} className="project-wrapper relative object-contain shadow-hover rounded-xl overflow-hidden">
+      <Image
+        src={thumbnail}
+        alt={`${title} 프로젝트 섬네일 이미지`}
+        className="rounded-xl w-full h-full brightness-75 object-cover transition-all"
+      />
+      <div className="absolute top-0 bottom-0 left-0 right-0 p-7 text-theme-dark">
+        <span className="project-title text-4xl transition-all">{title}</span>
+        <div className="project-detail relative h-full flex flex-col gap-5 mt-7 text-lg opacity-0 transition-opacity duration-500 sm:mt-5">
+          <span>&quot;{introduce}&quot;</span>
+          <span className="sm:hidden">{contribute}</span>
+          <span className="text-base sm:hidden">{skills}</span>
+          <nav className="absolute bottom-16 right-0 flex justify-end gap-7 sm:bottom-12">
+            <Link href={github} target="_blank" className="flex items-center gap-2">
+              <GitHubIcon className="w-7 sm:w-5" /> GitHub (README)
+            </Link>
+            {web && (
+              <Link href={web} target="_blank" className="flex items-center gap-1.5">
+                <DesktopIcon className="w-7 sm:w-5" /> Demo
+              </Link>
+            )}
+          </nav>
+        </div>
+      </div>
+    </div>
   );
 }
 

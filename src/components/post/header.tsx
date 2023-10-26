@@ -1,5 +1,5 @@
 import { Post } from 'contentlayer/generated';
-import { TagItem } from './TagFilter';
+import { TagItem } from 'components/tag-filter';
 
 export function PostHeader({ title, introduce, createdAt, tags, category }: Post) {
   return (

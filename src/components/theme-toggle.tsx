@@ -3,6 +3,7 @@
 import { ButtonHTMLAttributes, useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
 import { MoonIcon, SunIcon } from '@heroicons/react/24/solid';
+import clsx from 'clsx';
 
 interface ThemeToggleProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
@@ -31,7 +32,7 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
       aria-label="다크 모드 적용"
       tabIndex={0}
       onClick={handleClick}
-      className={`${className} z-10`}
+      className={clsx('z-10', className)}
     >
       {currentTheme === theme.dark ? <SunIcon className="w-7" /> : <MoonIcon className="w-6" />}
     </button>

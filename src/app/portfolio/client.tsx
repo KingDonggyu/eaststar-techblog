@@ -1,12 +1,12 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { ThemeToggle } from 'components/ThemeToggle';
-import { PortfolioIntro } from 'components/PortfolioIntro';
-import { PortfolioExperience } from 'components/PortfolioExperience';
-import { PortfolioSkill } from 'components/PortfolioSkill';
-import { PortfolioProject } from 'components/PortfolioProject';
-import { Footer } from 'components/Footer';
+import { ThemeToggle } from 'components/theme-toggle';
+import { PortfolioIntro } from 'components/portfolio/intro';
+import { PortfolioExperience } from 'components/portfolio/experiences';
+import { PortfolioSkill } from 'components/portfolio/skills';
+import { PortfolioProject } from 'components/portfolio/projects';
+import { Footer } from 'components/layout/footer';
 
 export default function Portfolio() {
   const [isMounted, setIsMounted] = useState(false);

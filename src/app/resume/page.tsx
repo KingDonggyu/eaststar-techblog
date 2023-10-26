@@ -1,10 +1,10 @@
 import 'styles/posts.css';
 import { Metadata } from 'next';
-import { ResumeSection } from 'components/ResumeSection';
-import { ResumeIntroduce } from 'components/ResumeIntroduce';
-import { ResumeProject } from 'components/ResumeProject';
-import { ResumeExperience } from 'components/ResumeExperience';
-import { PortfolioLinks } from 'components/PortfolioLinks';
+import { ResumeSection } from 'components/resume/section';
+import { ResumeIntroduce } from 'components/resume/introduce';
+import { ResumeProject } from 'components/resume/project';
+import { ResumeExperience } from 'components/resume/experience';
+import { PortfolioLinks } from 'components/portfolio/links';
 import projects from './data/projects';
 import { activities, awards, educations } from './data/experiences';
 

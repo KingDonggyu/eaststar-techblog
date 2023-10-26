@@ -2,10 +2,12 @@
 
 import { ReactNode } from 'react';
 import { usePathname } from 'next/navigation';
-import { TopNavbar } from './TopNavbar';
-import { Footer } from './Footer';
+import { Navbar } from 'components/layout/navbar';
+import { Footer } from 'components/layout/footer';
+import { Providers } from './providers';
+import { GA } from './google-analytics';
 
-export function PageLayout({ children }: { children: ReactNode }) {
+export function Root({ children }: { children: ReactNode }) {
   const pathname = usePathname();
 
   if (pathname === '/portfolio') {
@@ -13,10 +15,11 @@ export function PageLayout({ children }: { children: ReactNode }) {
   }
 
   return (
-    <>
-      <TopNavbar />
+    <Providers>
+      {!process.env.NEXT_PUBLIC_IS_LOCAL && <GA />}
+      <Navbar />
       <main className="m-auto py-20 px-[24px] w-full">{children}</main>
       <Footer />
-    </>
+    </Providers>
   );
 }
