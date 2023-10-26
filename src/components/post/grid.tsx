@@ -9,21 +9,30 @@ export function PostGrid({ posts }: { posts: Post[] }) {
   return (
     <section>
       <ul className="grid grid-cols-2 gap-12 mobile:grid-cols-1">
-        {posts.map(post => (
-          <PostItem key={post._raw.flattenedPath} {...post} />
+        {posts.map((post, i) => (
+          <PostItem key={post._raw.flattenedPath} priority={i < 4} {...post} />
         ))}
       </ul>
     </section>
   );
 }
 
-export function PostItem({ url, image, title, introduce, createdAt, category }: Post) {
+export function PostItem({
+  url,
+  image,
+  title,
+  introduce,
+  createdAt,
+  category,
+  priority,
+}: Post & { priority?: boolean }) {
   return (
     <li className="shadow-default transition-all duration-300 rounded-lg dark:bg-[#2d333b] hover:shadow-hover hover:scale-105">
       <Link href={url} aria-label="" tabIndex={0}>
         {image ? (
           <Image
             src={image}
+            priority={priority}
             width={300}
             height={100}
             alt="게시물 대표 이미지"
