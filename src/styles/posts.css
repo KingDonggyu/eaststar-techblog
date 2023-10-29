@@ -89,7 +89,7 @@
     @apply block text-center py-4 text-base;
   }
 
-  .post img {
+  .content img {
     @apply shadow-default rounded-lg m-auto;
   }
 }
