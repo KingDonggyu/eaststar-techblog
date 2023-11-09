@@ -1,21 +1,21 @@
 'use client';
 
+import clsx from 'clsx';
 import { ButtonHTMLAttributes, useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
 import { MoonIcon, SunIcon } from '@heroicons/react/24/solid';
-import clsx from 'clsx';
+import { THEME } from 'lib/constants';
 
 interface ThemeToggleProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
 }
 
 export function ThemeToggle({ className }: ThemeToggleProps) {
-  const theme = { light: 'light', dark: 'dark' };
-  const { theme: currentTheme, setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
   const [isVisible, setIsVisible] = useState(false);
 
   const handleClick = () => {
-    setTheme(currentTheme === theme.dark ? theme.light : theme.dark);
+    setTheme(theme === THEME.dark ? THEME.light : THEME.dark);
   };
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
       onClick={handleClick}
       className={clsx('z-10', className)}
     >
-      {currentTheme === theme.dark ? <SunIcon className="w-7" /> : <MoonIcon className="w-6" />}
+      {theme === THEME.dark ? <SunIcon className="w-7" /> : <MoonIcon className="w-6" />}
     </button>
   );
 }

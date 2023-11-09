@@ -11,6 +11,7 @@
     "postinstall": "husky install"
   },
   "dependencies": {
+    "@giscus/react": "^2.3.0",
     "@heroicons/react": "^2.0.18",
     "@types/node": "20.4.2",
     "@types/react": "18.2.15",
