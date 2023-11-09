@@ -23,7 +23,7 @@ export function Navbar() {
             tabIndex={0}
             className="font-bold no-underline hover:text-inherit"
           >
-            Resume
+            About
           </Link>
           <ThemeToggle />
         </div>

@@ -3,9 +3,9 @@
 import { useRef } from 'react';
 import Image from 'next/image';
 import hero from 'assets/hero.webp';
-import useImageScrollScale from 'hooks/useImageScrollScale';
-import useScrollDownFadeOut from 'hooks/useScrollDownFadeOut';
-import useScrollDownFadeIn from 'hooks/useScrollDownFadeIn';
+import useImageScrollScale from 'lib/hooks/useImageScrollScale';
+import useScrollDownFadeOut from 'lib/hooks/useScrollDownFadeOut';
+import useScrollDownFadeIn from 'lib/hooks/useScrollDownFadeIn';
 import { PortfolioLinks } from './links';
 import { ArrowDownIcon } from '../icons';
 

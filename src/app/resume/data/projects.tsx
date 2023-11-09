@@ -11,7 +11,7 @@ const projects: Project[] = [
     web: 'https://www.sejulbook.com',
     image: sejulbook,
     startDate: '2023.02',
-    endDate: '현재',
+    endDate: '2023.07',
     introduce: (
       <>
         <strong>&quot;독후감을 작성하고 공유할 수 있는 웹 서비스&quot;</strong> (회원 40명 확보)

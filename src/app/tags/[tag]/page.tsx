@@ -1,16 +1,9 @@
 import Home from 'app/page';
 import { allPosts } from 'contentlayer/generated';
-import { getAllTagList } from 'utils/getAllTagList';
+import { getAllTagList, getTagMatchedPosts } from 'lib/contentlayer/utils';
 
 export default function Tag({ params }: { params: { tag: string } }) {
-  const isAll = params.tag === 'all';
-
-  const posts = isAll
-    ? allPosts
-    : allPosts.filter(({ tags }) => {
-        const matchingTags = tags.filter(tag => tag.toLowerCase().replace(/\./g, '') === params.tag);
-        return Boolean(matchingTags.length);
-      });
+  const posts = params.tag === 'all' ? allPosts : getTagMatchedPosts(params.tag);
 
   return <Home posts={posts} />;
 }
