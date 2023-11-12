@@ -67,9 +67,6 @@ const projects: Project[] = [
           {
             content: '메타 태그 사용 및 sitemap 생성 자동화를 통한 검색 엔진 최적화',
           },
-          {
-            content: 'Intersection Observer API를 활용한 무한 스크롤 구현',
-          },
         ],
       },
     ],

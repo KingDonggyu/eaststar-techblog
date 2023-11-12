@@ -8,32 +8,33 @@ export const activities: Experience[] = [
     web: 'https://www.wanted.co.kr/events/pre_ob_fe_11',
     startDate: '2023.06.26',
     endDate: '2023.07.21',
-    details: [
-      { content: 'React 기반 웹 프론트엔드 학습 및 프로젝트 수행' },
-      { content: 'CI/CD 환경 구성 및 Jest와 RTL을 이용한 React 컴포넌트 테스트 학습' },
-    ],
+    details: [{ content: 'React 기반 웹 프론트엔드 학습 및 프로젝트 수행' }],
   },
   {
     title: '네이버 커넥트재단 부스트캠프 웹·모바일 7기',
     web: 'https://boostcamp.connect.or.kr/program_wm.html',
     startDate: '2022.07.18',
     endDate: '2022.12.16',
-    details: [
-      { content: '웹 풀스택 챌린지·멤버십 과정 수료' },
-      { content: 'JavaScript 기반 웹 풀스택 미션·프로젝트를 진행하며 학습 및 협업 수행' },
-    ],
+    details: [{ content: 'JavaScript 기반 웹 풀스택 미션·프로젝트를 진행하며 학습 및 협업 수행' }],
   },
   {
-    title: 'LG Soft India WebOS 인턴십',
+    title: '알고리즘 박살 스터디',
+    web: 'https://github.com/woong-jae/Algorithm-Crash',
+    startDate: '2022.04.11',
+    endDate: '2022.10.23',
+    details: [{ content: '알고리즘 문제 풀이 및 코드 리뷰 수행' }],
+  },
+  {
+    title: 'LG Soft India webOS 인턴십',
     startDate: '2021.07.05',
     endDate: '2021.08.06',
-    details: [{ content: 'LG WebOS 기반 미션·프로젝트 진행 및 해커톤 참여' }],
+    details: [{ content: 'LG webOS 기반 미션·프로젝트 진행 및 해커톤 참여' }],
   },
 ];
 
 export const awards: Experience[] = [
   {
-    title: '산림 공공 빅데이터 활용 창업 경진대회 장려상',
+    title: '산림 공공 빅데이터 활용 창업경진대회 장려상',
     startDate: '2021.09.09',
     details: [
       {
@@ -43,7 +44,7 @@ export const awards: Experience[] = [
     ],
   },
   {
-    title: 'LG WebOS 해커톤 2nd Place',
+    title: 'LG webOS 해커톤 Gold Prize (Second Place)',
     startDate: '2021.08.13',
     details: [
       {
