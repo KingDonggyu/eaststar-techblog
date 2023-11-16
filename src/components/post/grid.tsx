@@ -39,13 +39,13 @@ export function PostItem({
         ) : (
           <div className="rounded-t-lg w-full h-40 mobile:h-48 bg-primary" />
         )}
-        <div className="w-full h-52 p-4 flex flex-col justify-between">
-          <span className="text-sm text-date">{category}</span>
+        <div className="w-full h-52 p-4 flex flex-col">
+          <span className="text-sm text-date mb-4">{category}</span>
           <div>
             <h3 className="text-base mb-3 font-bold leading-snug transition-colors">{title}</h3>
             <p className="text-sm leading-relaxed">{introduce}</p>
           </div>
-          <span className="text-sm text-date">
+          <span className="text-sm text-date mt-auto">
             <ClockIcon className="w-5 inline-block align-middle mr-1" />
             <span className="align-middle">{createdAt}</span>
           </span>
