@@ -42,7 +42,7 @@ export function PostItem({
         <div className="w-full h-52 p-4 flex flex-col justify-between">
           <span className="text-sm text-date">{category}</span>
           <div>
-            <h3 className="text-lg mb-3 font-bold leading-snug transition-colors">{title}</h3>
+            <h3 className="text-base mb-3 font-bold leading-snug transition-colors">{title}</h3>
             <p className="text-sm leading-relaxed">{introduce}</p>
           </div>
           <span className="text-sm text-date">
