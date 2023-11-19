@@ -18,7 +18,7 @@ export function Navbar() {
         </Link>
         <div className="flex items-center gap-7">
           <Link
-            href="/resume"
+            href="/about"
             aria-label="이력서 페이지로 이동"
             tabIndex={0}
             className="font-bold no-underline hover:text-inherit"

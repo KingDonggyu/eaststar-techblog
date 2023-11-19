@@ -29,7 +29,7 @@ const projects: Project[] = [
           {
             content:
               '부분별 클라이언트 사이드 렌더링 적용으로 서버 사이드 렌더링 속도 87% 개선 (HTML 응답 시간: 1.33s → 0.177s)',
-            web: 'https://east-star.tistory.com/46',
+            web: '/post/ssr-performance-improvement',
           },
           {
             content: 'SQL raw query를 Prisma ORM으로 마이그레이션하여 유지 보수성 및 가독성 개선',
@@ -50,16 +50,16 @@ const projects: Project[] = [
           {
             content:
               '서비스워커를 활용하여 불필요한 이미지를 자동 제거하는 가비지 컬렉션 Hook 구현으로 AWS S3 사용 용량 감축',
-            web: 'https://east-star.tistory.com/41',
+            web: '/post/s3-capacity-optimization',
           },
           {
             content:
               'React-Query, Axios, LocalStorage 등 인터페이스를 구현하여 외부 요소에 대한 의존성 최소화 및 유지 보수성 개선',
-            web: 'https://east-star.tistory.com/47',
+            web: '/post/frontend-external-dependency',
           },
           {
             content: '아토믹 디자인을 활용한 디자인 시스템을 구축하여 컴포넌트 재사용성 및 확장성 증대',
-            web: 'https://east-star.tistory.com/42',
+            web: '/post/nextjs-atomic-design',
           },
           {
             content: '커스텀 Hook을 적극 활용하여 컴포넌트 내 관심사 분리',
@@ -91,7 +91,7 @@ const projects: Project[] = [
         details: [
           {
             content: '이미지 압축, 코드 스플리팅, 트리 쉐이킹으로 Speed Index 92%, Total Blocking Time 46% 개선',
-            web: 'https://east-star.tistory.com/36',
+            web: '/post/Improving-frontend-performance',
           },
           {
             content: 'Storybook을 통한 컴포넌트 검증 프로세스 간소화',

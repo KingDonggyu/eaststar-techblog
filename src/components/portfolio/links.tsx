@@ -18,13 +18,13 @@ export function PortfolioLinks({ large = false, hasPortfolioLink = false }: Port
         </Link>
       </LinkItemWrapper>
       <LinkItemWrapper name="Blog" large={large}>
-        <Link href="https://east-star.tistory.com" target="_blank" aria-label="Tistory 블로그로 이동">
+        <Link href="/" target="_blank" aria-label="Tistory 블로그로 이동">
           <WriteIcon className={iconStyle} />
         </Link>
       </LinkItemWrapper>
       {hasPortfolioLink && (
         <LinkItemWrapper name="Portfolio" large={large}>
-          <Link href="https://eaststar.vercel.app/portfolio" target="_blank" aria-label="포트폴리오로 이동">
+          <Link href="/portfolio" target="_blank" aria-label="포트폴리오로 이동">
             <DesktopIcon className={iconStyle} />
           </Link>
         </LinkItemWrapper>
