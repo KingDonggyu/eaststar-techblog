@@ -15,11 +15,13 @@ export function Root({ children }: { children: ReactNode }) {
   }
 
   return (
-    <Providers>
+    <>
       {!process.env.NEXT_PUBLIC_IS_LOCAL && <GA />}
-      <Navbar />
-      <main className="m-auto py-20 px-[24px] w-full">{children}</main>
-      <Footer />
-    </Providers>
+      <Providers>
+        <Navbar />
+        <main className="m-auto py-20 px-[24px] w-full">{children}</main>
+        <Footer />
+      </Providers>
+    </>
   );
 }
