@@ -16,7 +16,7 @@ export function Root({ children }: { children: ReactNode }) {
 
   return (
     <>
-      {!process.env.NEXT_PUBLIC_IS_LOCAL && <GA />}
+      <GA />
       <Providers>
         <Navbar />
         <main className="m-auto py-20 px-[24px] w-full">{children}</main>
